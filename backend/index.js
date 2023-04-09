@@ -4,6 +4,8 @@ import mysql from 'mysql'
 import dotenv from 'dotenv'
 import { initializeApp } from 'firebase/app';
 import {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword} from 'firebase/auth'
+import {Storage} from '@google-cloud/storage'
+import multer from 'multer'
 
 dotenv.config()
 const app = express();
@@ -13,7 +15,16 @@ const config = {
     authDomain: process.env.AUTH_DOMAIN,
   };
 
+const storageApp =new Storage()
+const bucket = storageApp.bucket("notional-cab-381815")
 const authApp = initializeApp(config);
+
+const [files] = await bucket.getFiles();
+
+console.log('Files:');
+files.forEach(file => {
+  console.log(file.name);
+});
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -22,6 +33,43 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
+
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 10 * 1024 * 1024, // 10MB
+    },
+  });
+  
+function uploadFile(path,name,file, next) {
+    upload.single('file')(req, res, err => {
+      if (err) {
+        return next(err);
+      }
+      if (!file) {
+        const error = new Error('No file uploaded');
+        error.statusCode = 400;
+        return next(error);
+      }
+  
+      const blob = bucket.file(`${path}/${name}`);
+  
+      const blobStream = blob.createWriteStream({
+        resumable: false,
+        contentType: file.mimetype,
+      });
+  
+      blobStream.on('error', err => next(err));
+  
+      blobStream.on('finish', () => {
+        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+        res.locals.publicUrl = publicUrl;
+        next();
+      });
+  
+      blobStream.end(file.buffer);
+    });
+  }
 
 const mysqlPool = mysql.createPool({
     host: process.env.INSTANCE_HOST,
@@ -67,6 +115,9 @@ app.post("/signup", (req, res) => {
     .then((userCreds)=>{
         const user = userCreds.user;
         mysqlPool.getConnection((err,con)=>{
+         uploadFile('certificates',req.user.uid,certificate,(err)=>{
+              console.log(`File uploaded ${req.body.certificate.originalname}`);
+         });
          con.query(`
          INSERT INTO user (id, hospital_id, fields_of_interest, name, email, profession)
          VALUES
@@ -146,4 +197,49 @@ app.get("/disease", (req, res) => {
         res.statusCode=401
         res.json({"response code":"401","msg":"Sign In first"})
     }
+});
+
+app.get('/:folder/:imageName', async (req, res) => {
+    const imageName = req.params.imageName;
+    const file = bucket.file(`${req.params.folder}/${imageName}`);
+    const stream = file.createReadStream();
+    stream.on('error', (err) => {
+        console.error(`Error retrieving file "${filePath}" from bucket:`, err);
+        res.status(404).send('File not found');
+    });
+    
+    stream.pipe(res);
+});
+app.post('/comment',(req,res)=>{
+     const uid = req.body.uid;
+     const postid = req.body.postid;
+     const msg = req.body.msg;
+     mysqlPool.getConnection((err,con)=>{
+          con.query(`insert into comments (uid,postid,msg) values ('${uid}','${postid}','${msg}')`,
+          (error,result,field)=>{
+              res.json({'response':'Comment Added'});
+          });
+     }).catch((err)=>{
+        res.json({'response':'Something went wrong'});
+     });
+});
+app.post('/post',(req,res)=>{
+     const uid = req.user.uid;
+     const msg = req.body.msg;
+     const attachemnts = req.body.attachemnts;
+     mysqlPool.getConnection((err,con)=>{
+        con.query(`insert into posts (uid,msg) values ('${uid}','${msg}',)`,
+        (error,result,field)=>{
+            console.log('Post Added to mysql server');
+            const postId = result.insertId;
+            attachemnts.forEach(file=>{
+                uploadFile('${uid}/posts/',postId,file,res,()=>{});
+
+            });
+            res.json({'response':'Comment Added'});
+        });
+   }).catch((err)=>{
+      res.json({'response':'Something went wrong'});
+   });
+
 });
