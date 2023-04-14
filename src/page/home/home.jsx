@@ -1,6 +1,8 @@
 import React from "react";
 import "./Home.css";
 
+import { Link } from "react-router-dom";
+
 const home = () => {
   return (
     <div>
@@ -49,19 +51,17 @@ const home = () => {
             <div className="collapse navbar-collapse" id="navcol-1">
               <ul className="navbar-nav mx-auto">
                 <li className="nav-item">
-                  <a className="nav-link active" href="index.html">
-                    Home
-                  </a>
+                  <a className="nav-link active">Home</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="services.html">
+                  <Link to="/services" className="nav-link">
                     Services
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="contacts.html">
-                    Contacts
-                  </a>
+                  <Link to="/contact" className="nav-link">
+                    Contact
+                  </Link>
                 </li>
               </ul>
               <a
