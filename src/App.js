@@ -1,22 +1,12 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './page/home/home';
-//import Service from './page/ServicesFol/Service';
-import Service from './page/ServicesFol/service';
-import Contact from './page/contact/Contact';
+//import Home from "./page/home/Home";
+import Home from "./page/home/Home";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/Service' element={<Service />} />
+      <Home />
+      {/* <h1>Hello</h1> */}
 
 
-        </Routes>
-
-
-      </BrowserRouter>
     </div>
   );
 }

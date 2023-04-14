@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Contact = () => {
   return (
@@ -44,9 +45,9 @@ const Contact = () => {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="services.html">
+                  <Link to="/services" className="nav-link">
                     Services
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link active" href="contacts.html">

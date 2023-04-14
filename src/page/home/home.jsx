@@ -3,7 +3,7 @@ import "./Home.css";
 
 import { Link } from "react-router-dom";
 
-const home = () => {
+const Home = () => {
   return (
     <div>
       <>
@@ -107,7 +107,7 @@ const home = () => {
                       className="img-fluid"
                       data-bss-parallax=""
                       data-bss-parallax-speed="0.8"
-                      src="assets/img/products/3.jpg"
+                      src="assest/img/products/3.jpg"
                     />
                   </div>
                   <div
@@ -572,4 +572,4 @@ const home = () => {
   );
 };
 
-export default home;
+export default Home;
