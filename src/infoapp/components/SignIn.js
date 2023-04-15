@@ -1,14 +1,14 @@
 import React from "react";
 import axios from 'axios'
 //import { useState } from "react";
+const URL = 'http://localhost:3000' | process.env.BACKEND_URL;
 export default function SignIn () {
 
     const submit = (event)=>{
         const data = new FormData();
         data.append("email",document.getElementById("email").value);
         data.append("password",document.getElementById("password").value);
-        axios.post('/signin',{
-            baseURL: 'http://localhost:8000',
+        axios.post(`${URL}/login`,data,{
             headers: {
                 'Content-Type': 'multipart/form-data'
               }

@@ -6,7 +6,7 @@ import Main from './main/Main'
 import React from 'react';
 import axios from 'axios';
 
-const URL = 'http://localhost:8000' | process.env.BACKEND_URL;
+const URL = 'http://loaclhost:3000' | process.env.BACKEND_URL;
 
 function App() {
   const {user,setUser} = useState(null);

@@ -34,7 +34,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-app.use(cors())
+app.use(multer().array());
+
 const upload = multer({
     storage: multer.memoryStorage(),
     limits: {
@@ -81,36 +82,62 @@ const mysqlPool = mysql.createPool({
 
 
 
-const port = 8000;
+const port = 3000;
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
-app.post("/signin", (req, res) => {
+app.post("/login", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const auth = getAuth(authApp);
     console.log(email,password);
     signInWithEmailAndPassword(auth,email,password)
     .then((userCreds)=>{
-        req.session.user=userCreds.user;
-        res.json(userCreds.user);
+        mysqlPool.getConnection((err,con)=>{
+            if(err){
+                    console.log("DBError ",err);
+                    res.statusCode=500;
+                    res.json({"message":"Internal Server Error"});
+                    return;
+            }
+            con.query(`select * from user where id='${userCreds.user.uid}' limit 1`, (error, result, field) => {
+                if (error) {
+                    console.log("Err1 ",error)
+                    res.statusCode=500;
+                    res.json({"message":"Internal Server Error"});
+                }
+                if(result[0])
+                res.json(result[0])
+                else{
+                 res.json(userCreds.user)
+                }
+            });
+        })
         
     }).catch((err)=>{
-        res.json(err);
+        if(err){
+        console.log("Err3",err);
+        res.statusCode=500;
+        res.json({"message":err});
+        }
     });
+
+    
 });
 app.get("/", (req, res) => {
     res.end("Home Page");
 });
 app.post("/signup", (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    const profession = req.body.profession;
-    const hospital = req.body.hospital;
-    const name = req.body.name;
-    const interest = req.body.interest;
-    const certificate = req.body.certificate;
+    const userData={ 
+        email : req.body.email,
+        password : req.body.password,
+        profession : req.body.profession,
+        hospital : req.body.hospital,
+        name : req.body.name,
+        interest : req.body.interest,
+        certificate : req.body.certificate
+    };
     const auth = getAuth(authApp);
     createUserWithEmailAndPassword(auth,email,password)
     .then((userCreds)=>{
@@ -122,9 +149,9 @@ app.post("/signup", (req, res) => {
          con.query(`
          INSERT INTO user (id, hospital_id, fields_of_interest, name, email, profession)
          VALUES
-           ('${user.uid}', ${hospital}, '${interest}', '${name}', '${email}', '${profession}')`,
+           ('${user.uid}', ${userData.hospital}, '${userData.interest}', '${userData.name}', '${userData.email}', '${userData.profession}')`,
            (queryErr,result,field)=>{
-              res.json(user);  
+              res.json(userData);  
            });
         });
     }).catch((err)=>{
@@ -251,6 +278,9 @@ app.get("/user",(req,res)=>{
         res.json(req.session.user);
     }else{
         res.statusCode=403;
-        res.end({"status":"Unauthenticated"});
+        res.json({"status":"Unauthenticated"});
     }
+});
+app.post("/hello",function(req,res){
+   res.json({"message":"Hello world"});
 });
