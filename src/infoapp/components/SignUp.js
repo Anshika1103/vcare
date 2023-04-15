@@ -34,7 +34,7 @@ export default function SignUp(){
                                 <div className="mb-3"><input className="form-control" type="text" name="interest" placeholder="Interests, Comma separated"/></div>
                                 <div className="mb-3"><input className="form-control" type="file" name="certificate" placeholder="Upload your certificate" required="true"/></div>
                                 <div className="mb-3"><button className="btn btn-primary shadow d-block w-100" type="submit">Sign up</button></div>
-                                <p className="text-muted">Already have an account?&nbsp;<a href="/signin">Log in</a></p>
+                                <p className="text-muted">Already have an account?&nbsp;<a href="/login">Log in</a></p>
                             </form>
                         </div>
                     </div>

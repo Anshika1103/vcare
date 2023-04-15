@@ -1,14 +1,14 @@
 import React from "react";
 import axios from 'axios'
 //import { useState } from "react";
-const URL = 'http://localhost:3000' | process.env.BACKEND_URL;
 export default function SignIn () {
 
     const submit = (event)=>{
         const data = new FormData();
         data.append("email",document.getElementById("email").value);
         data.append("password",document.getElementById("password").value);
-        axios.post(`${URL}/login`,data,{
+        axios.post('/signin',{
+            baseURL: 'http://localhost:8000',
             headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -16,8 +16,11 @@ export default function SignIn () {
           if(res.data.uid){
            //window.location.href="/";
           }
-        }).catch(err=>{
+          alert(data);
+        })
+        .catch(err => {
           alert(err);
+          document.getElementById("email").value=err;
           alert("Incorrect Username or password");
           console.log(err);
         });

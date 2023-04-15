@@ -87,7 +87,7 @@ const port = 3000;
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
-app.post("/login", (req, res) => {
+app.post("/signin", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const auth = getAuth(authApp);
@@ -280,7 +280,4 @@ app.get("/user",(req,res)=>{
         res.statusCode=403;
         res.json({"status":"Unauthenticated"});
     }
-});
-app.post("/hello",function(req,res){
-   res.json({"message":"Hello world"});
 });

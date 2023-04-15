@@ -1,4 +1,4 @@
-import React , { Component}  from 'react';
+import React  from 'react';
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import { BrowserRouter as Router, Route,Routes} from 'react-router-dom';
@@ -14,7 +14,7 @@ export default function InfoApp(){
         <Router>
             <Routes>
                 <Route exact path="/" Component={Home}/>
-                <Route path="/signin" Component={SignIn}/>
+                <Route path="/login" Component={SignIn}/>
                 <Route path="/signup" Component={SignUp}/>
                 <Route path="/contacts" Component={Contact}/>
                 <Route path="/services" Component={Services}/>
