@@ -3,10 +3,15 @@ import session from 'express-session';
 import mysql from 'mysql'
 import dotenv from 'dotenv'
 import { initializeApp } from 'firebase/app';
-import {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword} from 'firebase/auth'
+import {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword, applyActionCode} from 'firebase/auth'
 import {Storage} from '@google-cloud/storage'
 import multer from 'multer'
-import cors from 'cors'
+import cors from 'cors';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config()
 const app = express();
@@ -80,14 +85,10 @@ const mysqlPool = mysql.createPool({
     database: process.env.DB_NAME,
 });
 
+app.use(express.static(path.join(__dirname, 'build')));
 
 
-const port = 3000;
-
-app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
-});
-app.post("/signin", (req, res) => {
+app.post("/api/login", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const auth = getAuth(authApp);
@@ -107,10 +108,15 @@ app.post("/signin", (req, res) => {
                     res.statusCode=500;
                     res.json({"message":"Internal Server Error"});
                 }
-                if(result[0])
-                res.json(result[0])
+                if(result[0]){
+                    console.log("result",result[0])
+                    req.session.user=result[0];
+                   res.json({"user":result[0]})
+                }
                 else{
-                 res.json(userCreds.user)
+                    console.log("creds",userCreds.user);
+                    req.session.user=userCreds.user;
+                 res.json(userCreds.user);
                 }
             });
         })
@@ -125,10 +131,15 @@ app.post("/signin", (req, res) => {
 
     
 });
-app.get("/", (req, res) => {
+app.get("/api/", (req, res) => {
     res.end("Home Page");
 });
-app.post("/signup", (req, res) => {
+
+app.get("/api/signout",(req,res)=>{
+      req.session.user=null;
+      res.json({message:"Success"});
+});
+app.post("/api/signup", (req, res) => {
     const userData={ 
         email : req.body.email,
         password : req.body.password,
@@ -143,7 +154,7 @@ app.post("/signup", (req, res) => {
     .then((userCreds)=>{
         const user = userCreds.user;
         mysqlPool.getConnection((err,con)=>{
-         uploadFile('certificates',req.user.uid,certificate,(err)=>{
+         uploadFile('certificates',req.user.uid,userData.certificate,(err)=>{
               console.log(`File uploaded ${req.body.certificate.originalname}`);
          });
          con.query(`
@@ -159,7 +170,7 @@ app.post("/signup", (req, res) => {
     });
 
 });
-app.get("/hospitals", (req, res) => {
+app.get("/api/hospitals", (req, res) => {
     if (req.session.user) {
     console.log("Req for hospitals");
     mysqlPool.getConnection((err, con) => {
@@ -175,7 +186,7 @@ app.get("/hospitals", (req, res) => {
     }
 });
 
-app.get("/doctors", (req, res) => {
+app.get("/api/doctors", (req, res) => {
     if (req.session.user) {
     console.log("Req for docters");
     mysqlPool.getConnection((err, con) => {
@@ -190,7 +201,7 @@ app.get("/doctors", (req, res) => {
         res.json({"response code":"401","msg":"Sign In first"})
 }
 });
-app.get("/recent", (req, res) => {
+app.get("/api/recent", (req, res) => {
     if (req.session.user) {
         console.log("Req for recent");
         mysqlPool.getConnection((err, con) => {
@@ -210,7 +221,7 @@ app.get("/recent", (req, res) => {
         res.json({"response code":"401","msg":"Sign In first"})
     }
 });
-app.get("/disease", (req, res) => {
+app.get("/api/disease", (req, res) => {
     res.header({"Content-Type":"application/json"});
     if (req.session.user) {
         console.log("Req for diseases");
@@ -227,9 +238,10 @@ app.get("/disease", (req, res) => {
     }
 });
 
-app.get('/:folder/:imageName', async (req, res) => {
+app.get('/api/images/:folder/:imageName', async (req, res) => {
     const imageName = req.params.imageName;
-    const file = bucket.file(`${req.params.folder}/${imageName}`);
+    const filePath = `${req.params.folder}/${imageName}`
+    const file = bucket.file(filePath);
     const stream = file.createReadStream();
     stream.on('error', (err) => {
         console.error(`Error retrieving file "${filePath}" from bucket:`, err);
@@ -238,7 +250,7 @@ app.get('/:folder/:imageName', async (req, res) => {
     
     stream.pipe(res);
 });
-app.post('/comment',(req,res)=>{
+app.post('/api/comment',(req,res)=>{
      const uid = req.body.uid;
      const postid = req.body.postid;
      const msg = req.body.msg;
@@ -251,7 +263,7 @@ app.post('/comment',(req,res)=>{
         res.json({'response':'Something went wrong'});
      });
 });
-app.post('/post',(req,res)=>{
+app.post('/api/post',(req,res)=>{
      const uid = req.user.uid;
      const msg = req.body.msg;
      const attachemnts = req.body.attachemnts;
@@ -272,12 +284,21 @@ app.post('/post',(req,res)=>{
 
 });
 
-app.get("/user",(req,res)=>{
+app.get("/api/user",(req,res)=>{
     
     if(req.session.user){
         res.json(req.session.user);
     }else{
         res.statusCode=403;
-        res.json({"status":"Unauthenticated"});
+        res.json({status:"Unauthenticated"});
     }
 });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+  
+  const port = 3000;
+  
+  app.listen(port, () => {
+      console.log(`Server is running on port: ${port}`);
+  });

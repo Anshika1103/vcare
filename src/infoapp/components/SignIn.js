@@ -2,13 +2,12 @@ import React from "react";
 import axios from 'axios'
 //import { useState } from "react";
 export default function SignIn () {
-
     const submit = (event)=>{
         const data = new FormData();
         data.append("email",document.getElementById("email").value);
         data.append("password",document.getElementById("password").value);
-        axios.post('/login',data,{
-            baseURL: 'https://sandeep-source-glowing-space-waffle-w44v5pvjxwhgp7x-3000.preview.app.github.dev',
+        event.preventDefault();
+        axios.post('/api/login',data,{
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Access-Control-Allow-Origin': "*"
@@ -16,9 +15,9 @@ export default function SignIn () {
               }
         }).then(res=>{
           if(res.data.uid){
-           //window.location.href="/";
+           window.location.href="/";
           }
-          alert(data);
+          
         })
         .catch(err => {
           alert(err);

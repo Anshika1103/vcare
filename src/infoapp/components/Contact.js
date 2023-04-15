@@ -2,7 +2,7 @@ import React from "react";
 export default function Contact(){
     return (
         <>
-            <section className="py-5">
+        <section className="py-5">
         <div className="container py-5">
             <div className="row mb-5">
                 <div className="col-md-8 col-xl-6 text-center mx-auto">
