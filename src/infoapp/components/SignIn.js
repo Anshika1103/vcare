@@ -7,10 +7,12 @@ export default function SignIn () {
         const data = new FormData();
         data.append("email",document.getElementById("email").value);
         data.append("password",document.getElementById("password").value);
-        axios.post('/signin',{
-            baseURL: 'http://localhost:8000',
+        axios.post('/login',{
+            baseURL: 'http://localhost:3000',
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Access-Control-Allow-Origin': "*"
+
               }
         }).then(res=>{
           if(res.data.uid){
