@@ -6,11 +6,11 @@ import Main from './main/Main'
 import React from 'react';
 import axios from 'axios';
 
-const URL = 'http://localhost:8000' | process.env.BACKEND_URL;
+const URL = 'https://sandeep-source-glowing-space-waffle-w44v5pvjxwhgp7x-3000.preview.app.github.dev' | process.env.BACKEND_URL;
 
 function App() {
   const {user,setUser} = useState(null);
-  axios.get(`${URL}/user`)
+  axios.get(`${URL}/api/user`)
   .then(user=>{
     setUser(user);
     alert(user);

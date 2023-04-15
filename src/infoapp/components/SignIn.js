@@ -7,8 +7,8 @@ export default function SignIn () {
         const data = new FormData();
         data.append("email",document.getElementById("email").value);
         data.append("password",document.getElementById("password").value);
-        axios.post('/login',{
-            baseURL: 'http://localhost:3000',
+        axios.post('/login',data,{
+            baseURL: 'https://sandeep-source-glowing-space-waffle-w44v5pvjxwhgp7x-3000.preview.app.github.dev',
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Access-Control-Allow-Origin': "*"
