@@ -3,6 +3,8 @@ import axios from 'axios'
 //import { useState } from "react";
 export default function SignIn () {
     const submit = (event)=>{
+        const btn = document.getElementById("btn-submit");
+        btn.disabled=true;
         const data = new FormData();
         data.append("email",document.getElementById("email").value);
         data.append("password",document.getElementById("password").value);
@@ -19,8 +21,7 @@ export default function SignIn () {
           
         })
         .catch(err => {
-          alert(err);
-          document.getElementById("email").value=err;
+          btn.disabled=true;
           alert("Incorrect Username or password");
           console.log(err);
         });
@@ -45,7 +46,7 @@ export default function SignIn () {
                             <form onSubmit={submit} id="signin-form" method="post">
                                 <div className="mb-3"><input className="form-control" type="email" id="email" name="email" placeholder="Email"/></div>
                                 <div className="mb-3"><input className="form-control" type="password" id="password" name="password" placeholder="Password"/></div>
-                                <div className="mb-3"><button className="btn btn-primary shadow d-block w-100" type="submit">Log in</button></div>
+                                <div className="mb-3"><button className="btn btn-primary shadow d-block w-100" id="btn-submit" type="submit">Log in</button></div>
                                 <p className="text-muted">Forgot your password?</p>
                             </form>
                         </div>

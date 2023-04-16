@@ -30,9 +30,9 @@ export default function Contact(){
                 <div className="col-md-6 col-xl-4">
                     <div>
                         <form className="p-3 p-xl-4" method="post" onSubmit={contact}>
-                            <div className="mb-3"><input className="form-control" type="text" id="name-1" name="name" placeholder="Name"/></div>
-                            <div className="mb-3"><input className="form-control" type="email" id="email-1" name="email" placeholder="Email"/></div>
-                            <div className="mb-3"><textarea className="form-control" id="message-1" name="message" rows="6" placeholder="Message"></textarea></div>
+                            <div className="mb-3"><input className="form-control" type="text" id="name-1" name="name" placeholder="Name" required/></div>
+                            <div className="mb-3"><input className="form-control" type="email" id="email-1" name="email" placeholder="Email" required/></div>
+                            <div className="mb-3"><textarea className="form-control" id="message-1" name="message" rows="6" placeholder="Message" required></textarea></div>
                             <div><button className="btn btn-primary shadow d-block w-100" type="submit">Send </button></div>
                         </form>
                     </div>

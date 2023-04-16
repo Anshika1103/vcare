@@ -25,12 +25,6 @@ const storageApp =new Storage()
 const bucket = storageApp.bucket("notional-cab-381815")
 const authApp = initializeApp(config);
 
-const [files] =  await bucket.getFiles();
-
-console.log('Files:');
-files.forEach(file => {
-  console.log(file.name);
-});
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))

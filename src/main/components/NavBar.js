@@ -1,6 +1,14 @@
 import React from "react";
-
+import axios from 'axios'
 export default function NavBar(props){
+    const signOut = (event)=>{
+        axios.get("/api/signout")
+        .then(data=>{
+            window.location.href="/"
+        }).catch((err)=>{
+             alert("Some error has occurred");
+        });
+    }
     return (
         <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
         <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
@@ -93,7 +101,7 @@ export default function NavBar(props){
                         {/* <a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
                          */}
-                            <div class="dropdown-divider"></div><a class="dropdown-item" href="/signout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" onClick={signOut} href="/"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                         </div>
                     </div>
                 </li>

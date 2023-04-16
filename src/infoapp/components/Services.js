@@ -15,8 +15,8 @@ export default function Services () {
                 <div className="col mb-5"><img alt="product"className="rounded img-fluid shadow" src="assets/img/products/1.jpg"/></div>
                 <div className="col d-md-flex align-items-md-end align-items-lg-center mb-5">
                     <div>
-                        <h5 className="fw-bold">Appointments</h5>
-                        <p className="text-muted mb-4">Users can access a calendar feature to view their upcoming appointments, schedule new appointments, and receive reminders for upcoming appointments</p><button className="btn btn-primary shadow" type="button">Learn more</button>
+                        <h5 className="fw-bold">Disease Mapping</h5>
+                        <p className="text-muted mb-4">The Disease mapping provides an interactive platform for users to explore the prevalence and distribution of various diseases around the world. </p><button className="btn btn-primary shadow" type="button">Learn more</button>
                     </div>
                 </div>
             </div>
@@ -24,8 +24,8 @@ export default function Services () {
                 <div className="col order-md-last mb-5"><img alt="product"className="rounded img-fluid shadow" src="assets/img/products/2.jpg"/></div>
                 <div className="col d-md-flex align-items-md-end align-items-lg-center mb-5">
                     <div>
-                        <h5 className="fw-bold">E-prescription</h5>
-                        <p className="text-muted mb-4">DocSphere provides personalized medical treatment plans and medication recommendations through its prescription feature</p><button className="btn btn-primary shadow" type="button">Learn more</button>
+                        <h5 className="fw-bold">Contribute</h5>
+                        <p className="text-muted mb-4">We welcome submissions from healthcare professionals, researchers, patients, and anyone with a passion for advancing healthcare knowledge.</p><button className="btn btn-primary shadow" type="button">Learn more</button>
                     </div>
                 </div>
             </div>
@@ -33,8 +33,8 @@ export default function Services () {
                 <div className="col mb-5"><img alt="product"className="rounded img-fluid shadow" src="assets/img/products/3.jpg"/></div>
                 <div className="col d-md-flex align-items-md-end align-items-lg-center mb-5">
                     <div>
-                        <h5 className="fw-bold">Sharing Experiences&nbsp;</h5>
-                        <p className="text-muted mb-4">Users on DocSphere can share their research, clinical experiences, opinions, and questions related to various diseases and medical topics</p><button className="btn btn-primary shadow" type="button">Learn more</button>
+                        <h5 className="fw-bold">News&nbsp;</h5>
+                        <p className="text-muted mb-4">We provides the latest updates and insights on healthcare topics from around the world. Our goal is to keep our readers informed and up-to-date on the most pressing issues in healthcare.</p><button className="btn btn-primary shadow" type="button">Learn more</button>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,10 @@ import React from "react";
 import Contact from "./Contact";
 
 export default function Home() {
+    const subscribe=(event)=>{
+        event.preventDefault();
+        alert("Thanks for subscription. Welcome to DocSphere")
+    }
     return (
         <>
        <header className="bg-dark">
@@ -41,7 +45,7 @@ export default function Home() {
                                         <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"></path>
                                     </svg></div>
                                 <h5 className="fw-bold card-title">Connect</h5>
-                                <p className="text-muted card-text mb-4">vCare allows doctors to create a profile, connect with colleagues in their field or specialty, and share information with each other</p><button className="btn btn-primary shadow" type="button">Learn more</button>
+                                <p className="text-muted card-text mb-4">DocSphere allows doctors to create a profile, connect with colleagues in their field or specialty, and share information with each other</p><a className="btn btn-primary shadow" type="button" href="/login">Join us</a>
                             </div>
                         </div>
                     </div>
@@ -53,7 +57,7 @@ export default function Home() {
                                         <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"></path>
                                     </svg></div>
                                 <h5 className="fw-bold card-title">News</h5>
-                                <p className="text-muted card-text mb-4">Users on Docsphare can share their research, clinical experiences, opinions, and questions related to various diseases and medical topics</p><button className="btn btn-primary shadow" type="button">Learn more</button>
+                                <p className="text-muted card-text mb-4">We provides the latest updates and insights on healthcare topics from around the world. Our goal is to keep our readers informed and up-to-date on the most pressing issues in healthcare.</p><button className="btn btn-primary shadow" type="button">Learn more</button>
                             </div>
                         </div>
                     </div>
@@ -64,7 +68,7 @@ export default function Home() {
                                         <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
                                     </svg></div>
                                 <h5 className="fw-bold card-title">Disease Mapping</h5>
-                                <p className="text-muted card-text mb-4">Users can access a calendar feature to view their upcoming appointments, schedule new appointments, and receive reminders for upcoming appointments</p><button className="btn btn-primary shadow" type="button">Learn more</button>
+                                <p className="text-muted card-text mb-4">The Disease mapping provides an interactive platform for users to explore the prevalence and distribution of various diseases around the world. </p><button className="btn btn-primary shadow" type="button">Learn more</button>
                             </div>
                         </div>
                     </div>
@@ -76,7 +80,7 @@ export default function Home() {
                                         <path fill-rule="evenodd" d="M2.832 13.228 8 9a1 1 0 1 0-1-1l-4.228 5.168-.026.086.086-.026z"></path>
                                     </svg></div>
                                 <h5 className="fw-bold card-title">Contribute</h5>
-                                <p className="text-muted card-text mb-4">DocSphare provides personalized medical treatment plans and medication recommendations through its prescription feature</p><button className="btn btn-primary shadow" type="button">Learn more</button>
+                                <p className="text-muted card-text mb-4">We welcome submissions from healthcare professionals, researchers, patients, and anyone with a passion for advancing healthcare knowledge. </p><button className="btn btn-primary shadow" type="button">Learn more</button>
                             </div>
                         </div>
                     </div>
@@ -92,8 +96,8 @@ export default function Home() {
                     <h2 className="fw-bold mb-2">Subscribe to our newsletter</h2>
                     <p className="mb-0">Connect with us and let us help you stay healthy</p>
                 </div>
-                <form className="d-flex justify-content-center flex-wrap flex-lg-nowrap" method="post">
-                    <div className="my-2"><input className="border rounded-pill shadow-sm form-control" type="email" name="email" placeholder="Your Email"/></div>
+                <form className="d-flex justify-content-center flex-wrap flex-lg-nowrap" method="post" onSubmit={subscribe}>
+                    <div className="my-2"><input className="border rounded-pill shadow-sm form-control" type="email" name="email" placeholder="Your Email" required/></div>
                     <div className="my-2"><button className="btn btn-primary shadow ms-2" type="submit">Subscribe </button></div>
                 </form>
             </div>

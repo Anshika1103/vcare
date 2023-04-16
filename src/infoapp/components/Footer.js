@@ -8,16 +8,16 @@ export default function Footer(){
                     <h3 className="fs-6 fw-bold">Services</h3>
                     <ul className="list-unstyled">
                         <li><a href="/">DocMap</a></li>
-                        <li><a href="/">Appointments</a></li>
-                        <li><a href="/">Precscriptions</a></li>
+                        <li><a href="/">Disease Mapping</a></li>
+                        <li><a href="/"> Contribute</a></li>
                     </ul>
                 </div>
                 <div className="col-sm-6 col-md-3 text-center text-lg-start d-flex flex-column">
                     <h3 className="fs-6 fw-bold">About</h3>
                     <ul className="list-unstyled">
-                        <li><a href="/">Company</a></li>
-                        <li><a href="/">Team</a></li>
-                        <li><a href="/">Legacy</a></li>
+                        <li><a href="/login">Company</a></li>
+                        <li><a href="/login">Team</a></li>
+                        <li><a href="/login">Legacy</a></li>
                     </ul>
                 </div>
 

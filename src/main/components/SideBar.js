@@ -22,7 +22,7 @@ export default function SideBar (){
                     <li className="nav-item"><a className="nav-link" href="/profile"><i className="fas fa-user"></i><span>Profile</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/docmap"><i className="fas fa-map-marked"></i><span>DocMap</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/diseases"><i className="fas fa-pills"></i><span>Disease</span></a></li>
-                    <li className="nav-item"><a className="nav-link" onClick={signOut} href="/signout"><i className="fas fa-sign-out-alt"></i><span>Sign Out</span></a></li>
+                    <li className="nav-item"><a className="nav-link" onClick={signOut} href="/"><i className="fas fa-sign-out-alt"></i><span>Sign Out</span></a></li>
                 </ul>
                 <div className="text-center d-none d-md-inline"><button className="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
