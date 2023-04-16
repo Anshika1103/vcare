@@ -21,7 +21,7 @@ export default function SignIn () {
           
         })
         .catch(err => {
-          btn.disabled=true;
+          btn.disabled=false;
           alert("Incorrect Username or password");
           console.log(err);
         });

@@ -111,6 +111,7 @@ app.post("/api/login", (req, res) => {
     console.log(email,password);
     signInWithEmailAndPassword(auth,email,password)
     .then((userCreds)=>{
+        console.log("Got creds",userCreds);
         mysqlPool.getConnection((err,con)=>{
             if(err){
                     console.log("DBError ",err);
@@ -136,6 +137,7 @@ app.post("/api/login", (req, res) => {
                  res.json(userCreds.user);
                 }
             });
+            con.release();
         })
         
     }).catch((err)=>{
@@ -187,6 +189,7 @@ app.post("/api/signup",upload.fields([{ name: 'certificate' }, { name: 'profile'
             req.session.user=userData;
             res.json(userData);  
            });
+           con.release();
         });
     }).catch((err)=>{
        res.json(err);
@@ -202,6 +205,7 @@ app.get("/api/hospitals", (req, res) => {
             if (error) console.log("err ", error)
             res.json(result[0])
         });
+        con.release();
     });
 } else {
     res.statusCode=401
@@ -218,6 +222,7 @@ app.get("/api/doctors", (req, res) => {
             if (error) console.log("err ", error)
             res.json(result[0])
         });
+        con.release();
     });
 } else {
     res.statusCode=401
@@ -238,6 +243,7 @@ app.get("/api/recent", (req, res) => {
                 if (error) console.log("err ", error)
                 res.json(result[0])
             });
+            con.release();
         });
     } else {
         res.statusCode=401
@@ -254,6 +260,7 @@ app.get("/api/disease", (req, res) => {
                 if (error) console.log("err ", error)
                 res.json(result[0])
             });
+            con.release();
         });
     } else {
         res.statusCode=401
@@ -282,6 +289,7 @@ app.post('/api/comment',(req,res)=>{
           (error,result,field)=>{
               res.json({'response':'Comment Added'});
           });
+          con.release();
      }).catch((err)=>{
         res.json({'response':'Something went wrong'});
      });
@@ -299,6 +307,7 @@ app.post('/api/posts',upload.single('file'),(req,res)=>{
             uploadFile(`${uid}/posts/attachments/${postId}`,file.originalname,file);
             res.json({'response':'Post Added'});
         })
+        con.release();
    });
 
 });
@@ -336,6 +345,7 @@ app.post("/api/like",(req,res)=>{
          
         })
         })
+        con.release();
         res.json({"response":"Okay"});
    });
 
@@ -354,6 +364,7 @@ app.get("/api/posts",(req,res)=>{
                 }
                 res.json(result);
             });
+            con.release();
        })
       }else{
         res.statusCode=403;
@@ -384,6 +395,7 @@ app.post("/api/contact",async (req,res)=>{
             }
             res.json(result);
         });
+        con.release();
    })
 });
 app.get('*', (req, res) => {
