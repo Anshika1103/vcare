@@ -26,7 +26,7 @@ export default function Home() {
     return (
         <>
             <div className="flex-column" style={{ height: "calc(100% - 100px)", overflowY: "scroll" }}>
-                <a href="/post" className="btn btn-info rounded-circle fa-solid fa-pen" style={{position:"absolute",bottom:"50px",right:"10px"}}>Create a post</a>
+                <a href="/post" className="btn btn-info rounded-circle" style={{position:"absolute",bottom:"50px",right:"10px"}}>New Post</a>
                 { posts && posts.map(post => (
                 <div className="post container">
                     <div className="row post-head">

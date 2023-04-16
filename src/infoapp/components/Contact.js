@@ -1,5 +1,21 @@
 import React from "react";
+import axios from 'axios'
 export default function Contact(){
+    const contact = (event)=>{
+        event.preventDefault();
+        const contactData = new FormData();
+        contactData.append("name",document.getElementById("name-1").value);
+        contactData.append("email",document.getElementById("email-1").value);
+        contactData.append("msg",document.getElementById("message-1").value);
+   axios.post('/api/contact', contactData)
+  .then((response) => {
+    alert("Thanks for contacting us");
+    console.log('New contact record created successfully!');
+  })
+  .catch((error) => {
+    console.error('Error creating new contact record:', error);
+  });
+    }
     return (
         <>
         <section className="py-5">
@@ -13,7 +29,7 @@ export default function Contact(){
             <div className="row d-flex justify-content-center">
                 <div className="col-md-6 col-xl-4">
                     <div>
-                        <form className="p-3 p-xl-4" method="post">
+                        <form className="p-3 p-xl-4" method="post" onSubmit={contact}>
                             <div className="mb-3"><input className="form-control" type="text" id="name-1" name="name" placeholder="Name"/></div>
                             <div className="mb-3"><input className="form-control" type="email" id="email-1" name="email" placeholder="Email"/></div>
                             <div className="mb-3"><textarea className="form-control" id="message-1" name="message" rows="6" placeholder="Message"></textarea></div>

@@ -42,10 +42,11 @@ export default function Main(props){
             <Router>
             <Routes>
                 <Route exact path="/" Component={Home}/>
-                <Route path="/profile" Component={Profile}/>
-                <Route path="/docmap"  Component={DocMap}/>
-                <Route path="/disease" Component={Disease}/>
-                <Route path="/post" Component={CreatePost}/>
+                <Route exact path="/profile" Component={Profile}/>
+                <Route exact path="/docmap"  Component={DocMap}/>
+                <Route exact path="/diseases" Component={Disease}/>
+                <Route exact path="/post" Component={CreatePost}/>
+                <Route Component={Home}/>
             </Routes>
             </Router>
             </div>

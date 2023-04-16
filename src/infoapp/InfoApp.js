@@ -14,10 +14,11 @@ export default function InfoApp(){
         <Router>
             <Routes>
                 <Route exact path="/" Component={Home}/>
-                <Route path="/login" Component={SignIn}/>
-                <Route path="/signup" Component={SignUp}/>
-                <Route path="/contacts" Component={Contact}/>
-                <Route path="/services" Component={Services}/>
+                <Route exact path="/login" Component={SignIn}/>
+                <Route exact path="/signup" Component={SignUp}/>
+                <Route exact path="/contacts" Component={Contact}/>
+                <Route exact path="/services" Component={Services}/>
+                <Route Component={Home}/>
             </Routes>
         </Router>
         <Footer/>

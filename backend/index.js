@@ -377,7 +377,21 @@ app.get("/api/user",async (req,res)=>{
         res.json({status:"Unauthenticated"});
     }
 });
-
+app.post("/api/contact",async (req,res)=>{
+    const name= req.body.name;
+    const email = req.body.email;
+    const msg = req.body.msg;
+    mysqlPool.getConnection((err,con)=>{
+        con.query(`insert into contact(email,name,msg) values('${email}','${name}','${msg}')`,
+        (error,result,field)=>{
+            if(err){
+                res.statusCode=403;
+                res.json({'response':'Something went wrong'}); 
+            }
+            res.json(result);
+        });
+   })
+});
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });

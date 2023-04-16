@@ -21,6 +21,7 @@ export default function CreatePost() {
         }
       })
       .then(response => {
+        alert("Posted Successfully");
         console.log(response.data);
       })
       .catch(error => {
