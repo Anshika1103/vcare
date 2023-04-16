@@ -27,7 +27,7 @@ function App() {
 <>
   {
     isAuthenticated ? (
-      <Main />
+      <Main user={userData} />
     ) : (
       <InfoApp />
     )

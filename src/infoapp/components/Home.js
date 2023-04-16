@@ -15,9 +15,9 @@ export default function Home() {
                 </div>
                 <div className="col-12 col-lg-10 mx-auto">
                     <div className="position-relative" style={{display: "flex",flexWrap: "wrap",justifyContent: "flex-end"}}>
-                        <div style={{position: "relative",flex: "0 0 45%",transform: "translate3d(-15%, 35%, 0)"}}><img className="img-fluid" alt="place" data-bss-parallax="" data-bss-parallax-speed="0.8" src="assets/img/products/3.jpg"/></div>
-                        <div style={{position: "relative",flex: "0 0 45%",transform: "translate3d(-5%, 20%, 0)"}}><img className="img-fluid" alt="place" data-bss-parallax="" data-bss-parallax-speed="0.4" src="assets/img/products/2.jpg"/></div>
-                        <div style={{position: "relative",flex: "0 0 45%",transform: "translate3d(0, 0%, 0)"}}><img className="img-fluid" alt="place" data-bss-parallax="" data-bss-parallax-speed="0.25" src="assets/img/products/1.jpg"/></div>
+                        <div style={{position: "relative",flex: "0 0 45%",transform: "translate3d(-15%, 35%, 0)"}}><img className="img-fluid" alt="place" data-bss-parallax="" data-bss-parallax-speed="0.8" src={`${process.env.PUBLIC_URL}/assetsMain/img/avatars/pixel1.jpg`}/></div>
+                        <div style={{position: "relative",flex: "0 0 45%",transform: "translate3d(-5%, 20%, 0)"}}><img className="img-fluid" alt="place" data-bss-parallax="" data-bss-parallax-speed="0.4" src={`${process.env.PUBLIC_URL}/assetsMain/img/avatars/pixel4.jpg`}/></div>
+                        <div style={{position: "relative",flex: "0 0 45%",transform: "translate3d(0, 0%, 0)"}}><img className="img-fluid" alt="place" data-bss-parallax="" data-bss-parallax-speed="0.25" src={`${process.env.PUBLIC_URL}/assetsMain/img/avatars/pixel2.jpg`}/></div>
                     </div>
                 </div>
             </div>

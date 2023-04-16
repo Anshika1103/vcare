@@ -37,17 +37,16 @@ export default function SignUp(){
                                 <div className="mb-3"><input className="form-control" type="email" name="email"  id="email" placeholder="Email"/></div>
                                 <div className="mb-3"><input className="form-control" type="password" name="password" id="password" placeholder="Password"/></div>
                                 <div className="mb-3"><input className="form-control" type="password" name="cpassword" id="cpassword" placeholder="Confirm Password"/></div>
-                                <div className="mb-3"><select className="form-select">
-                                        <optgroup label="This is a group">
-                                            <option value="12" selected="">This is item 1</option>
-                                            <option value="13">This is item 2</option>
-                                            <option value="14">This is item 3</option>
-                                        </optgroup>
+                                <div className="mb-3"><select className="form-select" name="profession">
+                                            <option value="doctor" selected="">'Doctor'</option>
+                                            <option value="researcher">Researcher</option>
+                                            <option value="student">Student</option>
+                                            <option value="user">User</option>
                                     </select></div>
-                                <div className="mb-3"><input className="form-control" type="text" name="hospital" id="hospital" placeholder="Hospital"/></div>
                                 <div className="mb-3"><input className="form-control" type="text" name="name" id="name" placeholder="Enter your name"/></div>
                                 <div className="mb-3"><input className="form-control" type="text" name="interest" id="interest" placeholder="Interests, Comma separated"/></div>
-                                <div className="mb-3"><input className="form-control" type="file" name="certificate" id="certificate" placeholder="Upload your certificate" required="true"/></div>
+                                <div className="mb-3"><input className="form-control" type="file" name="certificate" id="certificate" placeholder="Upload your certificate" /></div>
+                                <div className="mb-3"><input className="form-control" type="file" accept="image/*" name="profile" id="profile" placeholder="Upload your picture" /></div>
                                 <div className="mb-3"><button className="btn btn-primary shadow d-block w-100" type="submit">Sign up</button></div>
                                 <p className="text-muted">Already have an account?&nbsp;<a href="/login">Log in</a></p>
                             </form>

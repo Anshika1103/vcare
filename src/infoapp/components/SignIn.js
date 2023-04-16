@@ -8,13 +8,12 @@ export default function SignIn () {
         data.append("password",document.getElementById("password").value);
         event.preventDefault();
         axios.post('/api/login',data,{
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Access-Control-Allow-Origin': "*"
-
-              }
-        }).then(res=>{
-          if(res.data.uid){
+            headers:{
+              'Content-Type':"application/json"
+            }
+          }).
+        then(res=>{
+          if(res.data.id){
            window.location.href="/";
           }
           

@@ -9,7 +9,8 @@ export default function NavBar(){
                     <li className="nav-item"><a className="nav-link active" href="/">Home</a></li>
                     <li className="nav-item"><a className="nav-link" href="/services">Services</a></li>
                     <li className="nav-item"><a className="nav-link" href="/contacts">Contacts</a></li>
-                </ul><a className="btn btn-primary shadow" role="button" href="signup">Sign up</a>
+                    <li className="nav-item"><a className="nav-link" href="/signup">Sign Up</a></li>
+                </ul><a className="btn btn-primary shadow" role="button" href="/login">Log In</a>
             </div>
         </div>
       </nav>

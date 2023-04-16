@@ -1,14 +1,18 @@
-import React, { Profiler } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Route,Routes} from 'react-router-dom';
 import SideBar from './components/SideBar'
 import Home from './components/Home'
 import Profile from "./components/Profile";
+import DocMap from "./components/DocMap";
+import Disease from "./components/Disease"
+import CreatePost from "./components/PostDialog";
 
   
 
-export default function Main(){
+export default function Main(props){
+
     function changeStylesheet() {
         const bootstrapLink = document.getElementById('bootstrap-css');
         bootstrapLink.href = `${process.env.PUBLIC_URL}/assetsMain/bootstrap/css/bootstrap.min.css`;
@@ -22,7 +26,7 @@ export default function Main(){
         const customLink = document.getElementById('custom-css');
         customLink.href = `${process.env.PUBLIC_URL}/assetsMain/css/styles.min.css`;
 
-        const scriptLink = document.querySelector(`script[src="${process.env.PUBLIC_URL}/assets/js/script.min.js"`);
+        const scriptLink = document.getElementById('custom-js');
         scriptLink.src = `${process.env.PUBLIC_URL}/assetsMain/js/script.min.js`;
       }
     
@@ -34,11 +38,14 @@ export default function Main(){
         <SideBar/>
         <div className="d-flex flex-column" id="content-wrapper" style={{overflowY: "hidden"}}>
             <div id="content" style={{height: "calc(100% - 200px)"}}>
-            <NavBar/>
+            <NavBar profile={props.user}/>
             <Router>
             <Routes>
                 <Route exact path="/" Component={Home}/>
                 <Route path="/profile" Component={Profile}/>
+                <Route path="/docmap"  Component={DocMap}/>
+                <Route path="/disease" Component={Disease}/>
+                <Route path="/post" Component={CreatePost}/>
             </Routes>
             </Router>
             </div>

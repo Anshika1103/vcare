@@ -20,7 +20,7 @@ export default function SideBar (){
                 <ul className="navbar-nav text-light" id="accordionSidebar">
                     <li className="nav-item"><a className="nav-link active" href="/"><i className="fas fa-home"></i><span>Feed</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/profile"><i className="fas fa-user"></i><span>Profile</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/hospitals"><i className="fas fa-map-marked"></i><span>DocMap</span></a></li>
+                    <li className="nav-item"><a className="nav-link" href="/docmap"><i className="fas fa-map-marked"></i><span>DocMap</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/diseases"><i className="fas fa-pills"></i><span>Disease</span></a></li>
                     <li className="nav-item"><a className="nav-link" onClick={signOut} href="/signout"><i className="fas fa-sign-out-alt"></i><span>Sign Out</span></a></li>
                 </ul>
