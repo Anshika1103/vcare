@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import axios from 'axios'
+import { useParams } from 'react-router-dom';
 
 export default function Profile() {
     const [user, setUser] = useState(null);
-
+    const {id} = useParams();
+    
 
     useEffect(() => {
         // Make a request to your backend to check if the user is authenticated
-        axios.get('/api/user')
+        axios.get(`/api/user?uid=${id}`)
             .then(response => {
                 setUser(response.data);
             })
@@ -112,7 +114,7 @@ export default function Profile() {
                         </div>
                     </div>
                 </div>
-                <div className="card shadow mb-5">
+                {/* <div className="card shadow mb-5">
                     <div className="card-header py-3">
                         <p className="text-primary m-0 fw-bold">Forum Settings</p>
                     </div>
@@ -129,7 +131,7 @@ export default function Profile() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
     )
 }

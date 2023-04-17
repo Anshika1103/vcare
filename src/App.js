@@ -16,7 +16,6 @@ function App() {
   const got = false;
   useEffect(() => {
     // Make a request to your backend to check if the user is authenticated
-    setLoading(true);
     axios.get('/api/user')
       .then(response => {
         setIsAuthenticated(true);
@@ -31,19 +30,13 @@ function App() {
   }, []);
   return (
 <>
-  {
-    isAuthenticated ? (
-      <Main user={userData} />
-    ) : (
-      <>
-      {loading && 
-        <Spinner/>
-      }
-      <InfoApp />
-      </>
-      
-    )
-  }
+{loading ? (
+        <Spinner />
+      ) : isAuthenticated ? (
+        <Main user={userData} />
+      ) : (
+        <InfoApp />
+      )}
   </>
   );
 

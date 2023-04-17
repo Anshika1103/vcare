@@ -26,10 +26,13 @@ const bucket = storageApp.bucket("notional-cab-381815")
 const authApp = initializeApp(config);
 
 
+app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'buildAuth')));
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(session({
-    secret: "top-secret",
+    secret: "top-secret-no-buddy-knows-what-this-is",
     resave: false,
     saveUninitialized: false
 }))
@@ -104,7 +107,7 @@ const mysqlPool = mysql.createPool({
 app.use(express.static(path.join(__dirname, 'build')));
 
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login",async  (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const auth = getAuth(authApp);
@@ -150,15 +153,13 @@ app.post("/api/login", (req, res) => {
 
     
 });
-app.get("/api/", (req, res) => {
-    res.end("Home Page");
-});
 
-app.get("/api/signout",(req,res)=>{
+
+app.get("/api/signout",async (req,res)=>{
       req.session.user=null;
       res.redirect("/")
 });
-app.post("/api/signup",upload.fields([{ name: 'certificate' }, { name: 'profile' }]), (req, res) => {
+app.post("/api/signup",upload.fields([{ name: 'certificate' }, { name: 'profile' }]),async  (req, res) => {
     const userData={ 
         email : req.body.email,
         password : req.body.password,
@@ -196,7 +197,7 @@ app.post("/api/signup",upload.fields([{ name: 'certificate' }, { name: 'profile'
     });
 
 });
-app.get("/api/hospitals", (req, res) => {
+app.get("/api/hospitals",async  (req, res) => {
     if (req.session.user) {
     console.log("Req for hospitals");
     mysqlPool.getConnection((err, con) => {
@@ -213,7 +214,7 @@ app.get("/api/hospitals", (req, res) => {
     }
 });
 
-app.get("/api/doctors", (req, res) => {
+app.get("/api/doctors", async (req, res) => {
     if (req.session.user) {
     console.log("Req for docters");
     mysqlPool.getConnection((err, con) => {
@@ -229,28 +230,8 @@ app.get("/api/doctors", (req, res) => {
         res.json({"response code":"401","msg":"Sign In first"})
 }
 });
-app.get("/api/recent", (req, res) => {
-    if (req.session.user) {
-        console.log("Req for recent");
-        mysqlPool.getConnection((err, con) => {
-            if (err) return;
-            const result = con.query(`
-            SELECT *
-            FROM news
-            ORDER BY publish_date DESC
-            LIMIT 10;
-            `, (error, result, field) => {
-                if (error) console.log("err ", error)
-                res.json(result[0])
-            });
-            con.release();
-        });
-    } else {
-        res.statusCode=401
-        res.json({"response code":"401","msg":"Sign In first"})
-    }
-});
-app.get("/api/disease", (req, res) => {
+
+app.get("/api/disease",async  (req, res) => {
     res.header({"Content-Type":"application/json"});
     if (req.session.user) {
         console.log("Req for diseases");
@@ -280,7 +261,7 @@ app.get('/api/images/:folder/:imageName', async (req, res) => {
     
     stream.pipe(res);
 });
-app.post('/api/comment',(req,res)=>{
+app.post('/api/comment',async  (req,res)=>{
      const uid = req.body.uid;
      const postid = req.body.postid;
      const msg = req.body.msg;
@@ -294,7 +275,7 @@ app.post('/api/comment',(req,res)=>{
         res.json({'response':'Something went wrong'});
      });
 });
-app.post('/api/posts',upload.single('file'),(req,res)=>{
+app.post('/api/posts',upload.single('file'), async (req,res)=>{
      const uid = req.session.user.id;
      const title = req.body.title;
      const msg = req.body.content;
@@ -311,34 +292,43 @@ app.post('/api/posts',upload.single('file'),(req,res)=>{
    });
 
 });
-app.post("/api/like",(req,res)=>{
+app.post("/api/like",async (req,res)=>{
     const uid = req.session.user.id;
     const post_id = req.body.post_id;
+    console.log(uid,post_id)
     mysqlPool.getConnection((err,con)=>{
-        con.query(`select * from likes where user_id='${uid}' and post_id='${post_id}'`,
+        if(err){
+            console.log("Error",err);
+            res.json({response:"Some error occured"});
+            return;
+        }
+        con.query(`select * from likes where user_id='${uid}' and post_id=${post_id}`,
         (error,result,field)=>{
          if(error){
+            console.log(error)
             res.json({"response":"Some error occured"});
             return;
          }
-         if(result[0].count==0){
-            con.query(`insert into likes (user_id,post_id) values ('${uid}','${post_id}')`,(error2,result2,f)=>{
+         if(!result[0]){
+            con.query(`insert into likes (user_id,post_id) values ('${uid}',${post_id})`,(error2,result2,f)=>{
                  if(error2){
-                    console.log("Some error occured");
+
+                    console.log("Some error occured",error2);
                     return;
                  }
             });
          }else{
-            con.query(`delete from likes where user_id='${uid}' and post_id='${post_id}'`,(error2,result2,f)=>{
+            con.query(`delete from likes where user_id='${uid}' and post_id=${post_id}`,(error2,result2,f)=>{
                 if(error2){
-                   console.log("Some error occured");
+                   console.log("Some error occured",error2);
                    return;
                 }
            });
          }
-        con.query(`update posts set likes=(select count(*) from likes where id="${post_id}")`,
+        con.query(`update posts set likes=(select count(*) from likes where post_id=${post_id}) where id=${post_id}`,
         (error,result,field)=>{
          if(error){
+            console.log(error)
             res.json({"response":"Some error occured"});
             return;
          }
@@ -346,17 +336,20 @@ app.post("/api/like",(req,res)=>{
         })
         })
         con.release();
-        res.json({"response":"Okay"});
    });
 
 });
-app.get("/api/posts",(req,res)=>{
+app.get("/api/posts",async (req,res)=>{
       if(req.session.user){
         mysqlPool.getConnection((err,con)=>{
-            con.query(`SELECT posts.*, user.id AS author_id, user.name AS author_name, user.profile AS author_profile
+            con.query(`SELECT posts.*, user.id AS author_id, user.name AS author_name, 
+            user.profile AS author_profile,
+            likes.user_id IS NOT NULL AS is_liked
             FROM posts
             LEFT JOIN user
-            ON posts.author = user.id limit 20;`,
+            ON posts.author = user.id 
+            LEFT JOIN likes ON posts.id = likes.post_id AND likes.user_id = '${req.session.user.id}'
+            limit 20;`,
             (error,result,field)=>{
                 if(err){
                     res.statusCode=403;
@@ -373,7 +366,23 @@ app.get("/api/posts",(req,res)=>{
 });
 
 app.get("/api/user",async (req,res)=>{
-    
+    console.log(req.query.uid)
+    if(req.query.uid && undefined!=req.query.uid){
+      mysqlPool.getConnection((err,con)=>{
+              if(err){
+                console.log(err);
+                return;
+              }
+              con.query(`select * from user where id='${req.query.uid}'`,(err2,result,f)=>{
+                if(err2){
+                    console.log(err2);
+                    return;
+                }
+                res.json(result[0]);
+                console.log(result[0]);
+            })
+      });
+    }else{
     if(req.session.user){
         console.log(req.session.user)
         res.json(req.session.user);
@@ -381,6 +390,7 @@ app.get("/api/user",async (req,res)=>{
         res.statusCode=403;
         res.json({status:"Unauthenticated"});
     }
+   }
 });
 app.post("/api/contact",async (req,res)=>{
     const name= req.body.name;
@@ -399,9 +409,11 @@ app.post("/api/contact",async (req,res)=>{
    })
 });
 app.get('*', (req, res) => {
+
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
-  
+
+});
+
   const port = 3000;
   
   app.listen(port, () => {
