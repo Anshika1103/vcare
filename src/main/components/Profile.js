@@ -24,13 +24,13 @@ export default function Profile() {
                 <h3 className="clr-accent fw-bold mb-4">Profile</h3>
                 <div className="row mb-3">
                     <div className="col-lg-4">
-                        <div style={{backgroundColor: "#222"}} className="card border-0  mb-3">
+                        <div style={{backgroundColor: "#252525"}} className="card border-0  mb-3">
                             <div className="card-body text-center shadow"><img alt="user" className="rounded-circle mb-3 mt-4" src={ user?`https://storage.googleapis.com/notional-cab-381815/${user.profile}`:"assentsMain/img/avatars/avatar1.jpeg"} width="160" height="160" />
                                 <div className="mb-3"><button className="btn btn-primary btn-sm" type="button">Change Photo</button></div>
                             </div>
                         </div>
-                        <div  style={{backgroundColor: "#222"}} className="card border-0 shadow mb-4">
-                            <div style={{backgroundColor: "#222"}} className="card-header py-3">
+                        <div  style={{backgroundColor: "#252525"}} className="card border-0 shadow mb-4">
+                            <div style={{backgroundColor: "#252525"}} className="card-header py-3">
                                 <h6 className="clr-accent fw-bold m-0">certificate</h6>
                             </div>
                             {/* https://sandeep-source-redesigned-dollop-vr9w4r4vpqrcx5g5-3000.preview.app.github.dev/ */}
@@ -75,8 +75,8 @@ export default function Profile() {
                             </div> */}
                         <div className="row">
                             <div className="col">
-                                <div  style={{backgroundColor: "#222"}} className="card border-0 shadow mb-3">
-                                    <div style={{backgroundColor: "#222"}} className="card-header py-3">
+                                <div  style={{backgroundColor: "#252525"}} className="card border-0 shadow mb-3">
+                                    <div style={{backgroundColor: "#252525"}} className="card-header py-3">
                                         <p className=" clr-accent m-0 fw-bold">User Settings</p>
                                     </div>
                                     <div className="card-body">
@@ -97,8 +97,8 @@ export default function Profile() {
                                         </form>
                                     </div>
                                 </div>
-                                <div  style={{backgroundColor: "#222"}} className="card border-0 shadow">
-                                    <div style={{backgroundColor: "#222"}} className="card-header py-3">
+                                <div  style={{backgroundColor: "#252525"}} className="card border-0 shadow">
+                                    <div style={{backgroundColor: "#252525"}} className="card-header py-3">
                                         <p className="clr-accent m-0 fw-bold">Contact Settings</p>
                                     </div>
                                     <div className="card-body">

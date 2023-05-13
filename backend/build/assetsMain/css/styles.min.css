@@ -3,9 +3,6 @@
 }
 .btn span{
     padding: 10px;
-<<<<<<< HEAD
-}
-=======
 }
 .author{
     text-decoration: none;
@@ -53,6 +50,7 @@
   .card{
     box-shadow: 0 10px 20px 0 rgba(0,0,0,.25) !important;
     -webkit-box-shadow: 0 10px 20px 0 rgba(0,0,0,.25) !important;
+    border: 0;
   }
   
   h3.page-head{
@@ -74,4 +72,3 @@
   }
   
   
->>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
