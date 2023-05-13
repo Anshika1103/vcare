@@ -8,6 +8,7 @@ import Profile from "./components/Profile";
 import DocMap from "./components/DocMap";
 import Disease from "./components/Disease"
 import CreatePost from "./components/PostDialog";
+import PostDetails from "./components/PostDetails";
 
 
 
@@ -47,6 +48,7 @@ export default function Main(props) {
                                     <Route exact path="/profile/:id" Component={Profile} />
                                     <Route exact path="/docmap" Component={DocMap} />
                                     <Route exact path="/diseases" Component={Disease} />
+                                    <Route exact path="/post/:postId" Component={PostDetails} />
                                     <Route exact path="/post" Component={CreatePost} />
                                     <Route Component={Home} />
                                 </Routes>

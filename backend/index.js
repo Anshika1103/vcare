@@ -292,6 +292,23 @@ app.post('/api/posts',upload.single('file'), async (req,res)=>{
    });
 
 });
+app.get("/api/post/:postId",async(req,res)=>{
+     const postId = req.params.postId;
+     mysqlPool.getConnection((err,con)=>{
+        if(err){
+          console.log(err);
+          return;
+        }
+        con.query(`select * from posts where id='${postId}'`,(err2,result,f)=>{
+          if(err2){
+              console.log(err2);
+              return;
+          }
+          res.json(result[0]);
+          console.log(result[0]);
+      })
+    });
+});
 app.post("/api/like",async (req,res)=>{
     const uid = req.session.user.id;
     const post_id = req.body.post_id;
