@@ -12,10 +12,16 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+<<<<<<< HEAD
 
   const got = false;
   useEffect(() => {
     // Make a request to your backend to check if the user is authenticated
+=======
+  const got = false;
+  useEffect(() => {
+    //Make a request to your backend to check if the user is authenticated
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
     axios.get('/api/user')
       .then(response => {
         setIsAuthenticated(true);
@@ -28,6 +34,7 @@ function App() {
         setLoading(false);
       });
   }, []);
+<<<<<<< HEAD
   function changeLinkUrls() {
     // get link tags by their IDs
     const bootstrapCss = document.getElementById('bootstrap-css');
@@ -47,15 +54,22 @@ function App() {
     // assign new URL to src attribute
     customJs.src = `${process.env.PUBLIC_URL}/assetsMain/js/script.min.js`;
   }
+=======
+
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
   return (
 <>
 {loading ? (
         <Spinner />
       ) : isAuthenticated ? (
+<<<<<<< HEAD
         <>
         {changeLinkUrls()}
         <Main user={userData} />
         </>
+=======
+        <Main user={userData} />
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
       ) : (
         <InfoApp />
       )}

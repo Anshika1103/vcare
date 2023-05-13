@@ -3,4 +3,75 @@
 }
 .btn span{
     padding: 10px;
+<<<<<<< HEAD
 }
+=======
+}
+.author{
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    color: #537dff;
+  
+  }
+  
+  .title-description{
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  .desc{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box!important;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  .sidebar{
+    background: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
+  
+  }
+  
+  main.profile input,
+  input{
+    background-color: #222 !important;
+    border:1px solid hsl(0 0% 100% / .3) !important;
+  }
+  main.profile input:focus,
+  input:focus{
+    background-color: #222 !important;
+  }
+  
+  main.profile .card-header{
+    border-color: hsl(0 0% 100% / .3);
+  }
+  
+  .card{
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,.25) !important;
+    -webkit-box-shadow: 0 10px 20px 0 rgba(0,0,0,.25) !important;
+  }
+  
+  h3.page-head{
+    color: #1EE0A5;
+    font-weight: 600;
+  }
+  
+  .clr-accent{
+    color: #537dff;
+  }
+  
+  .clr-white{
+    color: #fff;
+  
+  }
+  .bg-primary{
+    background-color: #537dff;
+  
+  }
+  
+  
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5

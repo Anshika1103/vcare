@@ -84,7 +84,10 @@ function uploadFile(folder, filename, file) {
   
       blobStream.on('error', (err) => {
         console.log(err);
+<<<<<<< HEAD
         next(err);
+=======
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
       });
   
       blobStream.on('finish', async () => {
@@ -177,11 +180,20 @@ app.post("/api/signup",upload.fields([{ name: 'certificate' }, { name: 'profile'
         mysqlPool.getConnection((err,con)=>{
           uploadFile('certificates',user.uid,req.files.certificate);
           uploadFile('profiles',`${user.uid}.png`,req.files.profile);
+<<<<<<< HEAD
        userData.profile=`profiles/${user.uid}.png`
          con.query(`
          INSERT INTO user (id,profile,fields_of_interest, name, email, profession)
          VALUES
            ('${user.uid}','${userData.profile}','${userData.interest}', '${userData.name}', '${userData.email}', '${userData.profession}')`,
+=======
+    userData.profile=`profiles/${user.uid}.png`
+    userData.certificate=`certificates/${user.uid}`
+         con.query(`
+         INSERT INTO user (id,profile,fields_of_interest, name, email, profession,certificate)
+         VALUES
+           ('${user.uid}','${userData.profile}','${userData.interest}', '${userData.name}', '${userData.email}', '${userData.profession}','${userData.certificate}')`,
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
            (queryErr,result,field)=>{
             if(queryErr){
                 console.log("Error inserting data into DB",queryErr);
@@ -292,6 +304,26 @@ app.post('/api/posts',upload.single('file'), async (req,res)=>{
    });
 
 });
+<<<<<<< HEAD
+=======
+app.get("/api/post/:postId",async(req,res)=>{
+     const postId = req.params.postId;
+     mysqlPool.getConnection((err,con)=>{
+        if(err){
+          console.log(err);
+          return;
+        }
+        con.query(`select * from posts where id='${postId}'`,(err2,result,f)=>{
+          if(err2){
+              console.log(err2);
+              return;
+          }
+          res.json(result[0]);
+          console.log(result[0]);
+      })
+    });
+});
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
 app.post("/api/like",async (req,res)=>{
     const uid = req.session.user.id;
     const post_id = req.body.post_id;
@@ -356,7 +388,10 @@ app.get("/api/posts",async (req,res)=>{
                     res.json({'response':'Something went wrong'}); 
                 }
                 res.json(result);
+<<<<<<< HEAD
                 console.log("Result: ",result);
+=======
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
             });
             con.release();
        })
@@ -380,7 +415,11 @@ app.get("/api/user",async (req,res)=>{
                     return;
                 }
                 res.json(result[0]);
+<<<<<<< HEAD
                 console.log("returned: ",result[0]);
+=======
+                console.log(result[0]);
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
             })
       });
     }else{

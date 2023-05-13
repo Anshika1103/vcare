@@ -19,20 +19,42 @@ export default function Profile() {
     }, []);
 
     return (
+<<<<<<< HEAD
             <div className="container-fluid" style={{ overflowY: "scroll", height: "calc(100% - 100px)" }}>
                 <h3 className="text-dark mb-4">Profile</h3>
                 <div className="row mb-3">
                     <div className="col-lg-4">
                         <div className="card mb-3">
+=======
+            
+            <main className="container-fluid profile" style={{ overflowY: "scroll", height: "calc(100% - 80px)"}}>
+                <h3 className="clr-accent fw-bold mb-4">Profile</h3>
+                <div className="row mb-3">
+                    <div className="col-lg-4">
+                        <div style={{backgroundColor: "#222"}} className="card border-0  mb-3">
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
                             <div className="card-body text-center shadow"><img alt="user" className="rounded-circle mb-3 mt-4" src={ user?`https://storage.googleapis.com/notional-cab-381815/${user.profile}`:"assentsMain/img/avatars/avatar1.jpeg"} width="160" height="160" />
                                 <div className="mb-3"><button className="btn btn-primary btn-sm" type="button">Change Photo</button></div>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <div className="card shadow mb-4">
                             <div className="card-header py-3">
                                 <h6 className="text-primary fw-bold m-0">certificate</h6>
                             </div>
                             <div className="card-body" style={{backegroundImage:user?`url(https://storage.googleapis.com/notional-cab-381815/certificates/${user.id})`:"url(assentsMain/img/avatars/avatar1.jpeg)",backgroundSise:"cover",backgroundRepeat: "no-repeat"}}>
+=======
+                        <div  style={{backgroundColor: "#222"}} className="card border-0 shadow mb-4">
+                            <div style={{backgroundColor: "#222"}} className="card-header py-3">
+                                <h6 className="clr-accent fw-bold m-0">certificate</h6>
+                            </div>
+                            {/* https://sandeep-source-redesigned-dollop-vr9w4r4vpqrcx5g5-3000.preview.app.github.dev/ */}
+                            <div className="card-body" style={{display:"grid",gridTemplateColumns:"auto",minHeight:"200px",backgroundSize:"100% 100%",backgroundRepeat: "no-repeat"}}>
+                            <div>
+                            <img style={{width:"100%", height:"100%",objectFit: 'cover'}} src={user?`https://storage.googleapis.com/notional-cab-381815/certificates/${user.id}`:"ssentsMain/img/avatars/avatar1.jpeg"} />
+                            
+                            </div>
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
                             </div>
                         </div>
                     </div>
@@ -69,28 +91,46 @@ export default function Profile() {
                             </div> */}
                         <div className="row">
                             <div className="col">
+<<<<<<< HEAD
                                 <div className="card shadow mb-3">
                                     <div className="card-header py-3">
                                         <p className="text-primary m-0 fw-bold">User Settings</p>
+=======
+                                <div  style={{backgroundColor: "#222"}} className="card border-0 shadow mb-3">
+                                    <div style={{backgroundColor: "#222"}} className="card-header py-3">
+                                        <p className=" clr-accent m-0 fw-bold">User Settings</p>
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
                                     </div>
                                     <div className="card-body">
                                         <form>
                                             <div className="row">
                                                 <div className="col">
+<<<<<<< HEAD
                                                     <div className="mb-3"><label className="form-label" for="username"><strong>Username</strong></label><input className="form-control" type="text" id="username" placeholder="user.name" name="username" value={user?user.email:""} /></div>
                                                 </div>
                                                 <div className="col">
                                                     <div className="mb-3"><label className="form-label" for="email"><strong>Email Address</strong></label><input className="form-control" type="email" id="email" placeholder="user@example.com" name="email" value={user?user.email:""}/></div>
+=======
+                                                    <div className="mb-3"><label className="form-label clr-white" for="username"><strong>Username</strong></label><input className="form-control" type="text" id="username" placeholder="user.name" name="username" value={user?user.email:""} /></div>
+                                                </div>
+                                                <div className="col">
+                                                    <div className="mb-3"><label className="form-label clr-white" for="email"><strong>Email Address</strong></label><input className="form-control" type="email" id="email" placeholder="user@example.com" name="email" value={user?user.email:""}/></div>
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col">
+<<<<<<< HEAD
                                                     <div className="mb-3"><label className="form-label" for="first_name"><strong>Name</strong></label><input className="form-control" type="text" id="first_name" placeholder="John" name="first_name" value={user?user.name:""}/></div>
+=======
+                                                    <div className="mb-3"><label className="form-label clr-white" for="first_name"><strong>Name</strong></label><input className="form-control" type="text" id="first_name" placeholder="John" name="first_name" value={user?user.name:""}/></div>
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
+<<<<<<< HEAD
                                 <div className="card shadow">
                                     <div className="card-header py-3">
                                         <p className="text-primary m-0 fw-bold">Contact Settings</p>
@@ -98,6 +138,15 @@ export default function Profile() {
                                     <div className="card-body">
                                         <form>
                                             <div className="mb-3"><label className="form-label" for="address"><strong>Email</strong></label><input className="form-control" type="text" id="address" placeholder="Sunset Blvd, 38" value={user?user.email:""} name="address" /></div>
+=======
+                                <div  style={{backgroundColor: "#222"}} className="card border-0 shadow">
+                                    <div style={{backgroundColor: "#222"}} className="card-header py-3">
+                                        <p className="clr-accent m-0 fw-bold">Contact Settings</p>
+                                    </div>
+                                    <div className="card-body">
+                                        <form>
+                                            <div className="mb-3"><label className="form-label clr-white" for="address"><strong>Email</strong></label><input className="form-control" type="text" id="address" placeholder="Sunset Blvd, 38" value={user?user.email:""} name="address" /></div>
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
                                             {/* <div className="row">
                                                     <div className="col">
                                                         <div className="mb-3"><label className="form-label" for="city"><strong>City</strong></label><input className="form-control" type="text" id="city" placeholder="Los Angeles" name="city"/></div>
@@ -132,6 +181,10 @@ export default function Profile() {
                         </div>
                     </div>
                 </div> */}
+<<<<<<< HEAD
             </div>
+=======
+            </main>
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
     )
 }

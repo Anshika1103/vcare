@@ -80,7 +80,11 @@ export default function Home() {
                                         <path fill-rule="evenodd" d="M2.832 13.228 8 9a1 1 0 1 0-1-1l-4.228 5.168-.026.086.086-.026z"></path>
                                     </svg></div>
                                 <h5 className="fw-bold card-title">Contribute</h5>
+<<<<<<< HEAD
                                 <p className="text-muted card-text mb-4">We welcome submissions from healthcare professionals, researchers, patients, and anyone with a passion for advancing healthcare knowledge. </p><button className="btn btn-primary shadow" type="button">Learn more</button>
+=======
+                                <p className="text-muted card-text mb-4">We welcome submissions from healthcare professionals, researchers, patients, and anyone with a passion for advancing healthcare knowledge. </p><a className="btn btn-primary shadow" type="button" href="/login">Join to Contribute</a>
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
                             </div>
                         </div>
                     </div>
