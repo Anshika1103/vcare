@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-
-export default function Disease(){
-    return (
-        <>
-        <div className="container">
-        <i className="h2">Under Development</i>
-        </div>
-        </>
-    )
-}
-=======
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'react-google-charts';
 
@@ -102,4 +89,3 @@ function Disease(){
 };
 
 export default Disease;
->>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
