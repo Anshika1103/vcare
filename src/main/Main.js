@@ -39,7 +39,7 @@ export default function Main(props) {
                 <div id="wrapper" style={{ overflow: "hidden", height: "100vh" }}>
                     <SideBar profile={props.user} />
                     <div className="d-flex flex-column" id="content-wrapper" style={{ overflowY: "hidden" }}>
-                        <div id="content" className="border-top" style={{ height: "calc(100% - 200px)", backgroundColor: "#1F1F1F" }}>
+                        <div id="content" className="border-top" style={{ height: "calc(100% - 150px)", backgroundColor: "#1F1F1F" }}>
                             <NavBar profile={props.user} />
                             <Router>
                                 <Routes>

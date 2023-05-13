@@ -20,7 +20,7 @@ export default function Profile() {
 
     return (
             
-            <main className="container-fluid profile" style={{ overflowY: "scroll", height: "calc(100% - 100px)"}}>
+            <main className="container-fluid profile" style={{ overflowY: "scroll", height: "calc(100% - 80px)"}}>
                 <h3 className="clr-accent fw-bold mb-4">Profile</h3>
                 <div className="row mb-3">
                     <div className="col-lg-4">
@@ -33,7 +33,9 @@ export default function Profile() {
                             <div style={{backgroundColor: "#222"}} className="card-header py-3">
                                 <h6 className="clr-accent fw-bold m-0">certificate</h6>
                             </div>
-                            <div className="card-body" style={{backegroundImage:user?`url(https://storage.googleapis.com/notional-cab-381815/certificates/${user.id})`:"url(assentsMain/img/avatars/avatar1.jpeg)",backgroundSise:"cover",backgroundRepeat: "no-repeat"}}>
+                            <div className="card-body" style={{display:"grid",background:user?`url(https://storage.googleapis.com/notional-cab-381815/certificates/${user.id})`:"url(assentsMain/img/avatars/avatar1.jpeg)",gridTemplateColumns:"auto",minHeight:"200px",backgroundSize:"100% 100%",backgroundRepeat: "no-repeat"}}>
+                            {/* <img style={{objectFit: 'cover'}} src={user?`https://storage.googleapis.com/notional-cab-381815/certificates/${user.id}`:"ssentsMain/img/avatars/avatar1.jpeg"} />
+                             */}
                             </div>
                         </div>
                     </div>

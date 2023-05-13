@@ -90,7 +90,7 @@ export default function Home() {
     }
     return (
         <>
-            <div className="flex-column d-flex align-items-center" style={{ height: "calc(100% - 100px)", overflowY: "scroll" }}>
+            <div className="flex-column d-flex align-items-center" style={{ height: "calc(100% - 60px)", overflowY: "scroll" }}>
                 <a href="/post" className="btn btn-info rounded-circle" style={{ position: "absolute", bottom: "50px", right: "10px" }}>New Post</a>
                 {posts && posts.map(post => (
                     <div style={{backgroundColor: "#222", maxWidth:"600px"}} className="post-card border-0 p-3 m-3 container card">

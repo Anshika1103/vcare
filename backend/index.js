@@ -84,7 +84,6 @@ function uploadFile(folder, filename, file) {
   
       blobStream.on('error', (err) => {
         console.log(err);
-        next(err);
       });
   
       blobStream.on('finish', async () => {
@@ -177,11 +176,12 @@ app.post("/api/signup",upload.fields([{ name: 'certificate' }, { name: 'profile'
         mysqlPool.getConnection((err,con)=>{
           uploadFile('certificates',user.uid,req.files.certificate);
           uploadFile('profiles',`${user.uid}.png`,req.files.profile);
-       userData.profile=`profiles/${user.uid}.png`
+    userData.profile=`profiles/${user.uid}.png`
+    userData.certificate=`certificates/${user.uid}`
          con.query(`
-         INSERT INTO user (id,profile,fields_of_interest, name, email, profession)
+         INSERT INTO user (id,profile,fields_of_interest, name, email, profession,certificate)
          VALUES
-           ('${user.uid}','${userData.profile}','${userData.interest}', '${userData.name}', '${userData.email}', '${userData.profession}')`,
+           ('${user.uid}','${userData.profile}','${userData.interest}', '${userData.name}', '${userData.email}', '${userData.profession}','${userData.certificate}')`,
            (queryErr,result,field)=>{
             if(queryErr){
                 console.log("Error inserting data into DB",queryErr);
