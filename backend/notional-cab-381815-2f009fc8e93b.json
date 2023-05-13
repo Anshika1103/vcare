@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "notional-cab-381815",
+  "private_key_id": "2f009fc8e93b12bb26434ecd75c82a3eab3ba457",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCV4p9e4gRnXmOU\nH2uH4DT3sFl5NlRasrACaQMi10rvZO32b4fAWYL1owF7Tf+l90YBfzui5DTmbQgg\na9fbxSx4/0qCDjKIzHRlMPQ7HmOsIFIxWT+JwTL5qFT1RgcM21BdM4MjOvz/IIUr\nW6kCLPbZqIB0+4m5Hn3pLPGA7MlTkTdMyBB9D3QOXd1VOpfH++AbGOOW3NG7FNNi\nSxamBMbtB5QOLNUHf79bM2rY6G5MLrVyP+bsRlEl5AFxL6gfRSKCraiBKzq7xzSE\nexn8kAudAWlNKb8m9f5N9ceilmR3U0Hf6huiOEwL+RMW3E5ineY+46xhmAmf2JO/\nxyJE9k1RAgMBAAECggEAAVRC+onsOmhwCfUPXziXRP0Hhhd7vwQnoxXVpR5Ioqp/\n9mKoebBcL3EfHGilfuNxolDDsXRESH4osh+Ss0xifROH0HMaHUlxh3YxgZa0O+db\neJGPNS8FPzPaxllfyvbk6wv/uopq35j6ZVczk/qHGTNb1EMTcRSlTtyLAGGD1Yhd\nfDAa6iR34wdCSiAn33zIJlJcPoLGWwq57tKmrDivGCnIvgDpjO1bFU2JEjENmnYr\nl+kO743cl/nq91jPta7VKlvzbOOtpNhmLtXxM7zrblmVdtUnmqC7Qg7oAbstQdFM\nfhdoX0ge/E/NJrOsbb6qAYEGGqX2spRDgQUSluWqoQKBgQDR0q5EqA+abMT0YEbt\nVrrySwFXrJsasifFg4yTH4wFRuXCImeYnNbSz6oCVHqoQptFttm7jV1/mfROZe6a\nUhFRHGTaid8e31s1maY9KHLYr+1fpN7YpsPRpjmbYcAd95fS9kcACz06qG5dYuCJ\n58l9pylb6fbfP2xFTl9f8y3BiQKBgQC23xSvdT5jI9h+oOpE60aFhGVpUdZwtciT\n57zA9POpamzkcRkzFxSxhcIRMxpj8p+GmiX/o5Gb84VFr1zHsTZhgM8/+jAyPgup\ngUc6NQrYENM4Yu+Zb9LI1EygQ0CWFXmpxFAEdC9LoxETmaGOQv436uT+m0eX0gOU\nSHqm8uQjiQKBgEX/63OsPchfETYWCJOVo7jBnSkKxJQba3lRccyDccsw4+XoZHdd\nm62o6ibs2B7aWcLgRbN0bgTr771X9Eo3pt9QgbUG2hEKovs2z2cH34i66I5ICrBs\nsld3BTD5Y4ab22LeFsHE/iBboLY3DoHzeh0Zb4rieyHvnsdgZiE0l8dBAoGAEjLd\nIiDu1nrovqFQ7w7i88KbPQHx70GH9oAnXqSB4yg+MfW3ZkgzvP7ssz18sNmiWojY\nozop8XUonCi5eP3/xXBGL728MiPOkU3WQsqoi5wRCRl/cquYNHg8L+7BbK4yb1yk\nAe12D3bo6iRt2XR9TB9KLrRRSaCSzpzv59FgNtECgYEAsybiPVwD5fpP20AbRVo0\nb2/KAhZxaJdN/RZD3uG4ks4xdwIJP0O4Ddo5fh97F2KRINBDc2A51rqVCh8vVkQB\nALn8ELibED7se0kh2XTv9CPCbe696/UTPBgbKyTlkjOpzsckQwx4Dinsf0tR0pHj\nEaJycUpEu2s//xcs6x1bZdY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "docsphare-bucket-acoount@notional-cab-381815.iam.gserviceaccount.com",
+  "client_id": "114708683676286777451",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/docsphare-bucket-acoount%40notional-cab-381815.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
