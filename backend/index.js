@@ -356,6 +356,7 @@ app.get("/api/posts",async (req,res)=>{
                     res.json({'response':'Something went wrong'}); 
                 }
                 res.json(result);
+                console.log("Result: ",result);
             });
             con.release();
        })
@@ -379,7 +380,7 @@ app.get("/api/user",async (req,res)=>{
                     return;
                 }
                 res.json(result[0]);
-                console.log(result[0]);
+                console.log("returned: ",result[0]);
             })
       });
     }else{

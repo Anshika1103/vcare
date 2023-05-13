@@ -40,6 +40,18 @@ export default function Home() {
           console.log(error);
         });
     }
+    const comment=(event)=>{
+         const post_id=event.target.getAttribute("post_id");
+         const element = document.getElementById(`${post_id}-comment-form`);
+         if(element.style.display=="none"){
+            element.style.display="block";
+         }else{
+            element.style.display="none";
+         }
+    }
+    const postComment = (event)=>{
+
+    }
     return (
         <>
             <div className="flex-column" style={{ height: "calc(100% - 100px)", overflowY: "scroll" }}>
@@ -57,10 +69,13 @@ export default function Home() {
                     </div>
                     <div className="container">
                         <div className="row">
-                            <div className="col-md-6 post-bottom-items btn"   style={{ textAlign: "center", fontSize: "24px" }}><i post_id={post.id}  id={`${post.id}-comment`} style={{color:"gray"}} i className="far fa-comments"></i><span>{post.comments}</span></div>
+                            <div className="col-md-6 post-bottom-items btn"  post_id={post.id} onClick={comment} style={{ textAlign: "center", fontSize: "24px" }}><i post_id={post.id}  id={`${post.id}-comment`} style={post.is_commented==1?{color:"dodgerblue"}:{color:"gray"}} className="far fa-comments"></i><span id={`${post.id}-comment-count`} post_id={post.id}>{post.comments}</span></div>
                             <div className="col-md-6 btn" post_id={post.id} onClick={like} style={{ textAlign: "center", fontSize: "24px" }}><i post_id={post.id}  id={`${post.id}-like`} style={post.is_liked==1?{color:"dodgerblue"}:{color:"gray"}} className="far fa-thumbs-up"></i><span id={`${post.id}-like-count`} post_id={post.id}>{post.likes}</span></div>
                         </div>
                     </div>
+                    <form id={`${post.id}-comment-form`} className="row" style={{display:"none",transition:"all .5s",borderTop:"1px solid rgba(200,200,200,.5)",paddingTop:"10px"}}>
+                        <div className="col-sm-10"><input type="text" id={`${post.id}-comment-text`}  name="comment-msg"/></div><div className="col-sm-2"> <input type="submit" onSubmit={postComment} className="btn btn-primary" value="submit"/></div>
+                    </form>
                 </div>
                  ))}
             </div>
