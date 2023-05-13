@@ -11,7 +11,11 @@ export default function SideBar (props){
     }
     return (
         <>
+<<<<<<< HEAD
+                <nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+=======
                 <nav className="sidebar navbar navbar-dark align-items-start sidebar sidebar-dark accordion p-0">
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
             <div className="container-fluid d-flex flex-column p-0"><a className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/">
                     <div className="sidebar-brand-icon rotate-n-15"><i className="fas fa-notes-medical"></i></div>
                     <div className="sidebar-brand-text mx-3"><span>docsphere</span></div>

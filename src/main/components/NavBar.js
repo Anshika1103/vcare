@@ -10,10 +10,17 @@ export default function NavBar(props){
         });
     }
     return (
+<<<<<<< HEAD
+        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+            <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."/><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+=======
         <nav style={{backgroundColor: "#1212127d"}} class="navbar navbar-light navbar-expand shadow topbar static-top">
         <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
             <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group"><input class="form-control border-0 small" type="text" placeholder="Search for ..."/><button class="btn btn-primary bg-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
             </form>
             <ul class="navbar-nav flex-nowrap ms-auto">
                 <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
