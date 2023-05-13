@@ -3,10 +3,15 @@ import session from 'express-session';
 import mysql from 'mysql'
 import dotenv from 'dotenv'
 import { initializeApp } from 'firebase/app';
-import {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword} from 'firebase/auth'
+import {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword, applyActionCode} from 'firebase/auth'
 import {Storage} from '@google-cloud/storage'
 import multer from 'multer'
-import cors from 'cors'
+import cors from 'cors';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config()
 const app = express();
@@ -20,21 +25,17 @@ const storageApp =new Storage()
 const bucket = storageApp.bucket("notional-cab-381815")
 const authApp = initializeApp(config);
 
-const [files] = await bucket.getFiles();
 
-console.log('Files:');
-files.forEach(file => {
-  console.log(file.name);
-});
+app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'buildAuth')));
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(session({
-    secret: "top-secret",
+    secret: "top-secret-no-buddy-knows-what-this-is",
     resave: false,
     saveUninitialized: false
 }))
-app.use(multer().array());
 
 const upload = multer({
     storage: multer.memoryStorage(),
@@ -43,34 +44,57 @@ const upload = multer({
     },
   });
   
-function uploadFile(path,name,file, next) {
-    upload.single('file')(req, res, err => {
-      if (err) {
-        return next(err);
-      }
-      if (!file) {
-        const error = new Error('No file uploaded');
-        error.statusCode = 400;
-        return next(error);
-      }
+// function uploadFile(req,res,path,name,file, next) {
+//     upload.single('file')(req, res, err => {
+//       if (err) {
+//         return next(err);
+//       }
+//       if (!file) {
+//         const error = new Error('No file uploaded');
+//         error.statusCode = 400;
+//         return next(error);
+//       }
   
-      const blob = bucket.file(`${path}/${name}`);
+//       const blob = bucket.file(`${path}/${name}`);
   
-      const blobStream = blob.createWriteStream({
+//       const blobStream = blob.createWriteStream({
+//         resumable: false,
+//         contentType: file.mimetype,
+//       });
+  
+//       blobStream.on('error', err => next(err));
+  
+//       blobStream.on('finish', () => {
+//         const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+//         res.locals.publicUrl = publicUrl;
+//         next();
+//       });
+  
+//       blobStream.end(file.buffer);
+//     });
+//   }
+function uploadFile(folder, filename, file) {
+    try {
+       
+      const fileUpload = bucket.file(`${folder}/${filename}`);
+      const blobStream = fileUpload.createWriteStream({
         resumable: false,
-        contentType: file.mimetype,
+        gzip: true,
       });
   
-      blobStream.on('error', err => next(err));
-  
-      blobStream.on('finish', () => {
-        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
-        res.locals.publicUrl = publicUrl;
-        next();
+      blobStream.on('error', (err) => {
+        console.log(err);
+        next(err);
       });
   
-      blobStream.end(file.buffer);
-    });
+      blobStream.on('finish', async () => {
+        console.log(`File uploaded to ${folder}/${filename}`);
+      });
+  
+      blobStream.end(file[0].buffer);
+    } catch (err) {
+      console.error(`Failed to upload file: ${err}`);
+    }
   }
 
 const mysqlPool = mysql.createPool({
@@ -80,20 +104,17 @@ const mysqlPool = mysql.createPool({
     database: process.env.DB_NAME,
 });
 
+app.use(express.static(path.join(__dirname, 'build')));
 
 
-const port = 3000;
-
-app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
-});
-app.post("/signin", (req, res) => {
+app.post("/api/login",async  (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const auth = getAuth(authApp);
     console.log(email,password);
     signInWithEmailAndPassword(auth,email,password)
     .then((userCreds)=>{
+        console.log("Got creds",userCreds);
         mysqlPool.getConnection((err,con)=>{
             if(err){
                     console.log("DBError ",err);
@@ -103,16 +124,23 @@ app.post("/signin", (req, res) => {
             }
             con.query(`select * from user where id='${userCreds.user.uid}' limit 1`, (error, result, field) => {
                 if (error) {
-                    console.log("Err1 ",error)
+                    console.log("Query error ",error)
                     res.statusCode=500;
                     res.json({"message":"Internal Server Error"});
                 }
-                if(result[0])
-                res.json(result[0])
+                console.log("result",result)
+                if(result[0]){
+                    
+                    req.session.user=result[0];
+                   res.json(result[0])
+                }
                 else{
-                 res.json(userCreds.user)
+                    console.log("creds",userCreds.user.email);
+                    req.session.user=userCreds.user;
+                 res.json(userCreds.user);
                 }
             });
+            con.release();
         })
         
     }).catch((err)=>{
@@ -125,41 +153,51 @@ app.post("/signin", (req, res) => {
 
     
 });
-app.get("/", (req, res) => {
-    res.end("Home Page");
+
+
+app.get("/api/signout",async (req,res)=>{
+      req.session.user=null;
+      res.redirect("/")
 });
-app.post("/signup", (req, res) => {
+app.post("/api/signup",upload.fields([{ name: 'certificate' }, { name: 'profile' }]),async  (req, res) => {
     const userData={ 
         email : req.body.email,
         password : req.body.password,
         profession : req.body.profession,
-        hospital : req.body.hospital,
         name : req.body.name,
         interest : req.body.interest,
-        certificate : req.body.certificate
+        certificate : req.files.certificate,
+        profile : req.files.profile
     };
+    console.log(userData)
     const auth = getAuth(authApp);
-    createUserWithEmailAndPassword(auth,email,password)
+    createUserWithEmailAndPassword(auth,userData.email,userData.password)
     .then((userCreds)=>{
         const user = userCreds.user;
         mysqlPool.getConnection((err,con)=>{
-         uploadFile('certificates',req.user.uid,certificate,(err)=>{
-              console.log(`File uploaded ${req.body.certificate.originalname}`);
-         });
+          uploadFile('certificates',user.uid,req.files.certificate);
+          uploadFile('profiles',`${user.uid}.png`,req.files.profile);
+       userData.profile=`profiles/${user.uid}.png`
          con.query(`
-         INSERT INTO user (id, hospital_id, fields_of_interest, name, email, profession)
+         INSERT INTO user (id,profile,fields_of_interest, name, email, profession)
          VALUES
-           ('${user.uid}', ${userData.hospital}, '${userData.interest}', '${userData.name}', '${userData.email}', '${userData.profession}')`,
+           ('${user.uid}','${userData.profile}','${userData.interest}', '${userData.name}', '${userData.email}', '${userData.profession}')`,
            (queryErr,result,field)=>{
-              res.json(userData);  
+            if(queryErr){
+                console.log("Error inserting data into DB",queryErr);
+                return;
+            }
+            req.session.user=userData;
+            res.json(userData);  
            });
+           con.release();
         });
     }).catch((err)=>{
        res.json(err);
     });
 
 });
-app.get("/hospitals", (req, res) => {
+app.get("/api/hospitals",async  (req, res) => {
     if (req.session.user) {
     console.log("Req for hospitals");
     mysqlPool.getConnection((err, con) => {
@@ -168,6 +206,7 @@ app.get("/hospitals", (req, res) => {
             if (error) console.log("err ", error)
             res.json(result[0])
         });
+        con.release();
     });
 } else {
     res.statusCode=401
@@ -175,7 +214,7 @@ app.get("/hospitals", (req, res) => {
     }
 });
 
-app.get("/doctors", (req, res) => {
+app.get("/api/doctors", async (req, res) => {
     if (req.session.user) {
     console.log("Req for docters");
     mysqlPool.getConnection((err, con) => {
@@ -184,33 +223,15 @@ app.get("/doctors", (req, res) => {
             if (error) console.log("err ", error)
             res.json(result[0])
         });
+        con.release();
     });
 } else {
     res.statusCode=401
         res.json({"response code":"401","msg":"Sign In first"})
 }
 });
-app.get("/recent", (req, res) => {
-    if (req.session.user) {
-        console.log("Req for recent");
-        mysqlPool.getConnection((err, con) => {
-            if (err) return;
-            const result = con.query(`
-            SELECT *
-            FROM news
-            ORDER BY publish_date DESC
-            LIMIT 10;
-            `, (error, result, field) => {
-                if (error) console.log("err ", error)
-                res.json(result[0])
-            });
-        });
-    } else {
-        res.statusCode=401
-        res.json({"response code":"401","msg":"Sign In first"})
-    }
-});
-app.get("/disease", (req, res) => {
+
+app.get("/api/disease",async  (req, res) => {
     res.header({"Content-Type":"application/json"});
     if (req.session.user) {
         console.log("Req for diseases");
@@ -220,6 +241,7 @@ app.get("/disease", (req, res) => {
                 if (error) console.log("err ", error)
                 res.json(result[0])
             });
+            con.release();
         });
     } else {
         res.statusCode=401
@@ -227,9 +249,10 @@ app.get("/disease", (req, res) => {
     }
 });
 
-app.get('/:folder/:imageName', async (req, res) => {
+app.get('/api/images/:folder/:imageName', async (req, res) => {
     const imageName = req.params.imageName;
-    const file = bucket.file(`${req.params.folder}/${imageName}`);
+    const filePath = `${req.params.folder}/${imageName}`
+    const file = bucket.file(filePath);
     const stream = file.createReadStream();
     stream.on('error', (err) => {
         console.error(`Error retrieving file "${filePath}" from bucket:`, err);
@@ -238,7 +261,7 @@ app.get('/:folder/:imageName', async (req, res) => {
     
     stream.pipe(res);
 });
-app.post('/comment',(req,res)=>{
+app.post('/api/comment',async  (req,res)=>{
      const uid = req.body.uid;
      const postid = req.body.postid;
      const msg = req.body.msg;
@@ -247,37 +270,152 @@ app.post('/comment',(req,res)=>{
           (error,result,field)=>{
               res.json({'response':'Comment Added'});
           });
+          con.release();
      }).catch((err)=>{
         res.json({'response':'Something went wrong'});
      });
 });
-app.post('/post',(req,res)=>{
-     const uid = req.user.uid;
-     const msg = req.body.msg;
-     const attachemnts = req.body.attachemnts;
+app.post('/api/posts',upload.single('file'), async (req,res)=>{
+     const uid = req.session.user.id;
+     const title = req.body.title;
+     const msg = req.body.content;
+     const file = req.file;
      mysqlPool.getConnection((err,con)=>{
-        con.query(`insert into posts (uid,msg) values ('${uid}','${msg}',)`,
+        con.query(`insert into posts (title,description,author) values ('${title}','${msg}','${uid}')`,
         (error,result,field)=>{
             console.log('Post Added to mysql server');
             const postId = result.insertId;
-            attachemnts.forEach(file=>{
-                uploadFile('${uid}/posts/',postId,file,res,()=>{});
-
-            });
-            res.json({'response':'Comment Added'});
-        });
-   }).catch((err)=>{
-      res.json({'response':'Something went wrong'});
+            uploadFile(`${uid}/posts/attachments/${postId}`,file.originalname,file);
+            res.json({'response':'Post Added'});
+        })
+        con.release();
    });
 
 });
+app.post("/api/like",async (req,res)=>{
+    const uid = req.session.user.id;
+    const post_id = req.body.post_id;
+    console.log(uid,post_id)
+    mysqlPool.getConnection((err,con)=>{
+        if(err){
+            console.log("Error",err);
+            res.json({response:"Some error occured"});
+            return;
+        }
+        con.query(`select * from likes where user_id='${uid}' and post_id=${post_id}`,
+        (error,result,field)=>{
+         if(error){
+            console.log(error)
+            res.json({"response":"Some error occured"});
+            return;
+         }
+         if(!result[0]){
+            con.query(`insert into likes (user_id,post_id) values ('${uid}',${post_id})`,(error2,result2,f)=>{
+                 if(error2){
 
-app.get("/user",(req,res)=>{
-    
+                    console.log("Some error occured",error2);
+                    return;
+                 }
+            });
+         }else{
+            con.query(`delete from likes where user_id='${uid}' and post_id=${post_id}`,(error2,result2,f)=>{
+                if(error2){
+                   console.log("Some error occured",error2);
+                   return;
+                }
+           });
+         }
+        con.query(`update posts set likes=(select count(*) from likes where post_id=${post_id}) where id=${post_id}`,
+        (error,result,field)=>{
+         if(error){
+            console.log(error)
+            res.json({"response":"Some error occured"});
+            return;
+         }
+         
+        })
+        })
+        con.release();
+   });
+
+});
+app.get("/api/posts",async (req,res)=>{
+      if(req.session.user){
+        mysqlPool.getConnection((err,con)=>{
+            con.query(`SELECT posts.*, user.id AS author_id, user.name AS author_name, 
+            user.profile AS author_profile,
+            likes.user_id IS NOT NULL AS is_liked
+            FROM posts
+            LEFT JOIN user
+            ON posts.author = user.id 
+            LEFT JOIN likes ON posts.id = likes.post_id AND likes.user_id = '${req.session.user.id}'
+            limit 20;`,
+            (error,result,field)=>{
+                if(err){
+                    res.statusCode=403;
+                    res.json({'response':'Something went wrong'}); 
+                }
+                res.json(result);
+            });
+            con.release();
+       })
+      }else{
+        res.statusCode=403;
+        res.json({status:"Unauthenticated"});
+      }
+});
+
+app.get("/api/user",async (req,res)=>{
+    console.log(req.query.uid)
+    if(req.query.uid && undefined!=req.query.uid){
+      mysqlPool.getConnection((err,con)=>{
+              if(err){
+                console.log(err);
+                return;
+              }
+              con.query(`select * from user where id='${req.query.uid}'`,(err2,result,f)=>{
+                if(err2){
+                    console.log(err2);
+                    return;
+                }
+                res.json(result[0]);
+                console.log(result[0]);
+            })
+      });
+    }else{
     if(req.session.user){
+        console.log(req.session.user)
         res.json(req.session.user);
     }else{
         res.statusCode=403;
-        res.json({"status":"Unauthenticated"});
+        res.json({status:"Unauthenticated"});
     }
+   }
 });
+app.post("/api/contact",async (req,res)=>{
+    const name= req.body.name;
+    const email = req.body.email;
+    const msg = req.body.msg;
+    mysqlPool.getConnection((err,con)=>{
+        con.query(`insert into contact(email,name,msg) values('${email}','${name}','${msg}')`,
+        (error,result,field)=>{
+            if(err){
+                res.statusCode=403;
+                res.json({'response':'Something went wrong'}); 
+            }
+            res.json(result);
+        });
+        con.release();
+   })
+});
+app.get('*', (req, res) => {
+
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+
+});
+
+  const port = 3000;
+  
+  app.listen(port, () => {
+      console.log(`Server is running on port: ${port}`);
+  });

@@ -7,9 +7,9 @@ export default function Footer(){
                 <div className="col-sm-6 col-md-3 text-center text-lg-start d-flex flex-column">
                     <h3 className="fs-6 fw-bold">Services</h3>
                     <ul className="list-unstyled">
-                        <li><a href="/">DocMap</a></li>
-                        <li><a href="/">Appointments</a></li>
-                        <li><a href="/">Precscriptions</a></li>
+                        <li><a href="/login">DocMap</a></li>
+                        <li><a href="/login">Disease Mapping</a></li>
+                        <li><a href="/login"> Contribute</a></li>
                     </ul>
                 </div>
                 <div className="col-sm-6 col-md-3 text-center text-lg-start d-flex flex-column">
