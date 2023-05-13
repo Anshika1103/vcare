@@ -33,9 +33,12 @@ export default function Profile() {
                             <div style={{backgroundColor: "#222"}} className="card-header py-3">
                                 <h6 className="clr-accent fw-bold m-0">certificate</h6>
                             </div>
-                            <div className="card-body" style={{display:"grid",background:user?`url(https://storage.googleapis.com/notional-cab-381815/certificates/${user.id})`:"url(assentsMain/img/avatars/avatar1.jpeg)",gridTemplateColumns:"auto",minHeight:"200px",backgroundSize:"100% 100%",backgroundRepeat: "no-repeat"}}>
-                            {/* <img style={{objectFit: 'cover'}} src={user?`https://storage.googleapis.com/notional-cab-381815/certificates/${user.id}`:"ssentsMain/img/avatars/avatar1.jpeg"} />
-                             */}
+                            {/* https://sandeep-source-redesigned-dollop-vr9w4r4vpqrcx5g5-3000.preview.app.github.dev/ */}
+                            <div className="card-body" style={{display:"grid",gridTemplateColumns:"auto",minHeight:"200px",backgroundSize:"100% 100%",backgroundRepeat: "no-repeat"}}>
+                            <div>
+                            <img style={{width:"100%", height:"100%",objectFit: 'cover'}} src={user?`https://storage.googleapis.com/notional-cab-381815/certificates/${user.id}`:"ssentsMain/img/avatars/avatar1.jpeg"} />
+                            
+                            </div>
                             </div>
                         </div>
                     </div>

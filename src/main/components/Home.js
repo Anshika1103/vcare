@@ -43,7 +43,7 @@ export default function Home() {
     return (
         <>
             <div className="flex-column d-flex align-items-center" style={{ height: "calc(100% - 60px)", overflowY: "scroll" }}>
-                <a href="/post" className="btn btn-info" style={{  position: "absolute",width:"50px",height:"50px",borderRadius:"50%", bottom: "50px", right: "10px" }}><i class='fas fa-pen'></i></a>
+                <a href="/post" className="btn btn-info" style={{  position: "absolute",width:"50px",height:"50px",borderRadius:"50%",paddingTop:"10px", bottom: "50px", right: "20px" }}><i class='fas fa-pen'></i></a>
                 {posts && posts.map(post => (
                     <a href={`/post/${post.id}`} style={{textDecoration:"none",backgroundColor: "#222", maxWidth:"600px"}} className="post-card border-0 p-3 m-3 container card">
                         <div className="d-flex gap-3">
