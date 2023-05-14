@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Services () {
     return (
@@ -16,7 +17,7 @@ export default function Services () {
                 <div className="col d-md-flex align-items-md-end align-items-lg-center mb-5">
                     <div>
                         <h5 className="fw-bold">Disease Mapping</h5>
-                        <p className="text-muted mb-4">The Disease mapping provides an interactive platform for users to explore the prevalence and distribution of various diseases around the world. </p><a href="/login" className="btn btn-primary shadow" type="button">Learn more</a>
+                        <p className="text-muted mb-4">The Disease mapping provides an interactive platform for users to explore the prevalence and distribution of various diseases around the world. </p><Link to="/login" className="btn btn-primary shadow" >Learn more</Link>
                     </div>
                 </div>
             </div>
@@ -34,7 +35,7 @@ export default function Services () {
                 <div className="col d-md-flex align-items-md-end align-items-lg-center mb-5">
                     <div>
                         <h5 className="fw-bold">News&nbsp;</h5>
-                        <p className="text-muted mb-4">We provides the latest updates and insights on healthcare topics from around the world. Our goal is to keep our readers informed and up-to-date on the most pressing issues in healthcare.</p><a href="/login" className="btn btn-primary shadow" type="button">Learn more</a>
+                        <p className="text-muted mb-4">We provides the latest updates and insights on healthcare topics from around the world. Our goal is to keep our readers informed and up-to-date on the most pressing issues in healthcare.</p><Link to="/login" className="btn btn-primary shadow">Learn more</Link>
                     </div>
                 </div>
             </div>

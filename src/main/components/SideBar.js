@@ -22,6 +22,7 @@ export default function SideBar (props){
                     <li className="nav-item"><a className="nav-link" href={`/profile/${props.profile.id}`}><i className="fas fa-user"></i><span>Profile</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/docmap"><i className="fas fa-map-marked"></i><span>DocMap</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/diseases"><i className="fas fa-pills"></i><span>Disease</span></a></li>
+                    <li className="nav-item"><a className="nav-link" href="/groups"><i className="fa fa-users"></i><span>Groups</span></a></li>
                     <li className="nav-item"><a className="nav-link" onClick={signOut} href="/"><i className="fas fa-sign-out-alt"></i><span>Sign Out</span></a></li>
                 </ul>
                 <div className="text-center d-none d-md-inline"><button className="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>

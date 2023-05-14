@@ -30,7 +30,8 @@ export default function Home() {
         }
         axios.post('/api/like', data, {
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
             }
         })
             .then(response => {
