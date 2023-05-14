@@ -47,9 +47,9 @@ export default function Home() {
                 {posts && posts.map(post => (
                     <a href={`/post/${post.id}`} style={{textDecoration:"none",backgroundColor: "#222", maxWidth:"600px"}} className="post-card border-0 p-3 m-3 container card">
                         <div className="d-flex gap-3">
-                            <div className=" post-profile-icon"><img alt="profile" className="border rounded-circle img-profile" style={{ height: "50px", width: "50px" }} src={`https://storage.googleapis.com/notional-cab-381815/${post.author_profile}`} /></div>
-                            <div className="post-title-header"><a className="author" href={`/profile/${post.author_id}`}>{post.author_name}</a>
-                                <p className="title-description">At GNUT</p>
+                            <div className=" post-profile-icon"><img alt="profile" className="border rounded-circle img-profile" style={{ height: "50px", width: "50px" }} src={`https://storage.googleapis.com/notional-cab-381815/profiles/${post.author}.png`} /></div>
+                            <div className="post-title-header"><a className="author" href={`/profile/${post.author}`}>{post.author_name}</a>
+                                <p className="title-description">{post.verification_status}</p>
                             </div>
                         </div>
                         <div className="col">

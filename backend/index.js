@@ -166,7 +166,7 @@ app.post("/api/signup",upload.fields([{ name: 'certificate' }, { name: 'profile'
         name : req.body.name,
         interest : req.body.interest,
         certificate : req.files.certificate,
-        profile : req.files.profile
+        profile : req.files.profile,
     };
     console.log(userData)
     const auth = getAuth(authApp);
@@ -359,20 +359,22 @@ app.post("/api/like",async (req,res)=>{
 app.get("/api/posts",async (req,res)=>{
       if(req.session.user){
         mysqlPool.getConnection((err,con)=>{
-            con.query(`SELECT posts.*, user.id AS author_id, user.name AS author_name, 
-            user.profile AS author_profile,
-            likes.user_id IS NOT NULL AS is_liked
-            FROM posts
-            LEFT JOIN user
-            ON posts.author = user.id 
-            LEFT JOIN likes ON posts.id = likes.post_id AND likes.user_id = '${req.session.user.id}'
-            limit 20;`,
+            con.query(`
+            SELECT  p.*, u.*, u.name AS author_name
+            FROM posts p 
+            LEFT JOIN topic_groups g ON FIND_IN_SET(g.name, p.category) > 0 
+            LEFT JOIN subscription s ON g.group_id = s.group_id 
+            LEFT JOIN user u ON p.author = u.id 
+            LEFT JOIN likes ON p.id = likes.post_id AND likes.user_id = '${req.session.user.id}'
+            WHERE s.user_id = '${req.session.user.id}'  OR p.category IS NULL
+            ORDER BY p.publish_date DESC LIMIT 20;`,
             (error,result,field)=>{
                 if(err){
                     res.statusCode=403;
                     res.json({'response':'Something went wrong'}); 
                 }
                 res.json(result);
+                console.log(result);
             });
             con.release();
        })
