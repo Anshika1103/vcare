@@ -20,16 +20,16 @@ export default function CreatePost() {
           'Content-Type': 'multipart/form-data'
         }
       })
-      .then(response => {
-        alert("Posted Successfully");
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }catch (error) {
-    console.error(error);
-  }
+        .then(response => {
+          alert("Posted Successfully");
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } catch (error) {
+      console.error(error);
+    }
   }
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -44,33 +44,34 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit} style={{maxWidth:"500px",margin:"auto"}}>
-      <div>
-        <label htmlFor="title">Title:</label>
-        <input className='form-control mb-4'
-          type="text"
-          id="title"
-          name="title"
-          value={title}
-          onChange={handleTitleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="content">Content:</label>
-        <textarea className='form-control mb-4'
-          id="content"
-          name="content"
-          value={content}
-          onChange={handleContentChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="file">File:</label>
-        <input type="file" className='form-control mb-4' id="file" name="file" onChange={handleFileChange} />
-      </div>
-      <button type="submit" className='btn btn-primary shadow d-block w-100'>Create Post</button>
-    </form>
-    </div>
+    <main style={{backgroundColor: "#252525", maxWidth: "750px", border:"0"}} className="container post-form mt-5 p-4 card">
+      <p style={{backgroundColor: "#252525"}} className='card-header fs-4 mb-3 fw-bold clr-white'>Submit a post</p>
+      <form onSubmit={handleSubmit} style={{ maxWidth: "600px", margin: "auto", width:"500px" }}>
+        <div>
+          <label className='mb-2' htmlFor="title">Title:</label>
+          <input className='form-control mb-4'
+            type="text"
+            id="title"
+            name="title"
+            value={title}
+            onChange={handleTitleChange}
+          />
+        </div>
+        <div>
+          <label className='mb-2' htmlFor="content">Content:</label>
+          <textarea className='form-control mb-4'
+            id="content"
+            name="content"
+            value={content}
+            onChange={handleContentChange}
+          />
+        </div>
+        <div>
+          <label className='mb-2' htmlFor="file">File:</label>
+          <input type="file" className='form-control mb-4' id="file" name="file" onChange={handleFileChange} />
+        </div>
+        <button type="submit" className='btn btn-primary shadow d-block w-100'>Create Post</button>
+      </form>
+    </main>
   );
 }

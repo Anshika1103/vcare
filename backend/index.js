@@ -76,6 +76,26 @@ const upload = multer({
 //   }
 function uploadFile(folder, filename, file) {
     try {
+       
+      const fileUpload = bucket.file(`${folder}/${filename}`);
+      const blobStream = fileUpload.createWriteStream({
+        resumable: false,
+        gzip: true,
+      });
+  
+      blobStream.on('error', (err) => {
+        console.log(err);
+<<<<<<< HEAD
+        next(err);
+=======
+>>>>>>> 68f2b075b1bd01f7303367818bfa125ba1e5e0c5
+      });
+  
+      blobStream.on('finish', async () => {
+        console.log(`File uploaded to ${folder}/${filename}`);
+      });
+  
+      blobStream.end(file[0].buffer);
 
         const fileUpload = bucket.file(`${folder}/${filename}`);
         const blobStream = fileUpload.createWriteStream({
@@ -428,34 +448,10 @@ app.get("/api/user", async (req, res) => {
                     console.log(err2);
                     return;
                 }
+                
                 res.json(result[0]);
+                console.log("returned: ",result[0]);
                 console.log(result[0]);
-            })
-        });
-    } else {
-        if (req.session.user) {
-            console.log(req.session.user)
-            res.json(req.session.user);
-        } else {
-            res.statusCode = 403;
-            res.json({ status: "Unauthenticated" });
-        }
-    }
-});
-app.post("/api/group/subcribe",async(req,res)=>{
-      if(req.session.user){
-        
-        mysqlPool.getConnection((err, con) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            con.query(`insert into subscription (group_id,user_id) values('${req.body.group_id}','${req.session.user.id}')`, (err2, result, f) => {
-                if (err2) {
-                    console.log(err2);
-                    return;
-                }
-                res.json({"Message":"Success"});
             })
         });
       }else{
@@ -463,6 +459,7 @@ app.post("/api/group/subcribe",async(req,res)=>{
             res.json({ status: "Unauthenticated" });
       }
 });
+
 app.post("/api/group/unsubcribe",async(req,res)=>{
     if(req.session.user){
       

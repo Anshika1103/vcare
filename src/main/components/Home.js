@@ -2,7 +2,54 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios'
 
 export default function Home() {
-    const [posts, setPosts] = useState(null);
+    const [posts, setPosts] = useState( [
+        {
+           id: 6,
+           title: 'Test by sandeep ',
+           description: 'He heard the crack echo in the late afternoon about a mile away. His heart started racing and he bolted into a full sprint. It wasnt a gunshot, it wasnt a gunshot, he repeated under his breathlessness as he continued to sprint.',
+           author: 'fw4LTCJoGKYJ82q6IqJwI5rxX9w2',
+           publish_date: '2023 - 04 - 16T08: 31: 21.000Z',
+           source: null,
+           category: null,
+           likes: 2,
+           comments: 0,
+           author_id: 'fw4LTCJoGKYJ82q6IqJwI5rxX9w2',
+           author_name: 'Sandeep Kushwaha',
+           author_profile: 'profiles/fw4LTCJoGKYJ82q6IqJwI5rxX9w2.png',
+           is_liked: 1
+       },
+        {
+           id: 7,
+           title: 'Post by nilesh',
+           description: 'He heard the crack echo in the late afternoon about a mile away. His heart started racing and he bolted into a full sprint. It wasnt a gunshot, it wasnt a gunshot, he repeated under his breathlessness as he continued to sprint.',
+           author: 'T8simCjir2MPd7CC50224vpaBfk1',
+           publish_date: '2023 - 04 - 17T02: 13: 58.000Z',
+           source: null,
+           category: null,
+           likes: 2,
+           comments: 0,
+           author_id: 'T8simCjir2MPd7CC50224vpaBfk1',
+           author_name: 'Nilesh Gupta',
+           author_profile: 'profiles/fw4LTCJoGKYJ82q6IqJwI5rxX9w2.png',
+           is_liked: 1
+       },
+        {
+           id: 8,
+           title: 'Another post after some days',
+           description: 'He heard the crack echo in the late afternoon about a mile away. His heart started racing and he bolted into a full sprint. It wasnt a gunshot, it wasnt a gunshot, he repeated under his breathlessness as he continued to sprint.',
+           author: 'fw4LTCJoGKYJ82q6IqJwI5rxX9w2',
+           publish_date: "2023 - 04 - 20T09: 27: 22.000Z",
+           source: null,
+           category: null,
+           likes: 2,
+           comments: 0,
+           author_id: 'fw4LTCJoGKYJ82q6IqJwI5rxX9w2',
+           author_name: 'Sandeep Kushwaha',
+           author_profile: 'profiles/fw4LTCJoGKYJ82q6IqJwI5rxX9w2.png',
+           is_liked: 1
+       }
+   ]
+);
 
     useEffect(() => {
         axios.get('/api/posts')
@@ -46,7 +93,7 @@ export default function Home() {
             <div className="flex-column d-flex align-items-center px-2" style={{ height: "calc(100% - 60px)", overflowY: "scroll" }}>
                 <a href="/post" className="btn btn-info" style={{  position: "absolute",width:"50px",height:"50px",borderRadius:"50%",paddingTop:"10px", bottom: "50px", right: "20px" }}><i class='fas fa-pen'></i></a>
                 {posts && posts.map(post => (
-                    <a href={`/post/${post.id}`} style={{textDecoration:"none",backgroundColor: "#222", maxWidth:"600px"}} className="post-card border-0 p-3 m-3 container card">
+                    <a href={`/post/${post.id}`} style={{textDecoration:"none",backgroundColor: "#252525", maxWidth:"600px"}} className="post-card border-0 p-3 m-3 container card">
                         <div className="d-flex gap-3">
                             <div className=" post-profile-icon"><img alt="profile" className="border rounded-circle img-profile" style={{ height: "50px", width: "50px" }} src={`https://storage.googleapis.com/notional-cab-381815/profiles/${post.author}.png`} /></div>
                             <div className="post-title-header"><a className="author" href={`/profile/${post.author}`}>{post.author_name}</a>

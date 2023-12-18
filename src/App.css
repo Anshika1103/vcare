@@ -7,6 +7,42 @@
   pointer-events: none;
 }
 
+main.post-form label,
+.comment-section label{
+  font-weight: 700;
+  color: #f4f4f4;
+}
+
+textarea{
+  background: none !important;
+  border:1px solid hsl(0%, 0%, 100% / .3) !important;
+}
+
+textarea .form-control{
+  border: none;
+}
+
+.author{
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.post-meta-wrapper{
+  border-top: 1px solid #f6f7f94d;
+  border-bottom: 1px solid #f6f7f94d;
+
+}
+
+.detail-desc{
+  color: #f4f4f4cc;
+}
+
+.comment-section textarea{
+  width: 100%;
+  height: 110px;
+}
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -36,4 +72,3 @@
     transform: rotate(360deg);
   }
 }
-
