@@ -1,0 +1,43 @@
+.card-container {
+    width: 15rem;
+    border-radius: 1rem;
+    box-shadow: 0px 10px 8px #8d8989;
+    display: flex;
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,.25) !important;
+    flex-direction: column;
+    padding: 10px;
+    margin: 0.5rem;
+  }
+  
+  .card-img {
+    width: 100%;
+    border-radius: 1rem 1rem 0 0;
+  }
+  
+  .card-title {
+    margin: 0.5rem 5%;
+  }
+  
+  .card-description {
+    margin: 0.5rem 5%;
+    color: rgb(252, 252, 252);
+  }
+  
+  .card-btn {
+    text-align: center;
+    width: 80%;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    background-color: #4b6bb1;
+    color: rgb(252, 252, 252);
+    outline:none;
+    border:none;
+    text-decoration: none;
+    margin: 0.5rem 0.5rem;
+  }
+  .card-btn[subscribe="Subscribe"]{
+    background-color: #4b6bb1;
+  }
+  .card-btn[subscribe="Subscribed"]{
+    background-color: #888c94;
+  }
