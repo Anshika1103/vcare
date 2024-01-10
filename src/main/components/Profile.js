@@ -8,7 +8,6 @@ export default function Profile() {
     
 
     useEffect(() => {
-        // Make a request to your backend to check if the user is authenticated
         axios.get(`/api/user?uid=${id}`)
             .then(response => {
                 setUser(response.data);
@@ -25,7 +24,7 @@ export default function Profile() {
                 <div className="row mb-3">
                     <div className="col-lg-4">
                         <div style={{backgroundColor: "#252525"}} className="card border-0  mb-3">
-                            <div className="card-body text-center shadow"><img alt="user" className="rounded-circle mb-3 mt-4" src={ user?`https://storage.googleapis.com/notional-cab-381815/${user.profile}`:"assentsMain/img/avatars/avatar1.jpeg"} width="160" height="160" />
+                            <div className="card-body text-center shadow"><img alt="user" className="rounded-circle mb-3 mt-4" src={ user?`https://storage.googleapis.com/money-flow-410110/${user.profile}`:"assentsMain/img/avatars/avatar1.jpeg"} width="160" height="160" />
                                 <div className="mb-3"><button className="btn btn-primary btn-sm" type="button">Change Photo</button></div>
                             </div>
                         </div>
@@ -36,7 +35,7 @@ export default function Profile() {
                             {/* https://sandeep-source-redesigned-dollop-vr9w4r4vpqrcx5g5-3000.preview.app.github.dev/ */}
                             <div className="card-body" style={{display:"grid",gridTemplateColumns:"auto",minHeight:"200px",backgroundSize:"100% 100%",backgroundRepeat: "no-repeat"}}>
                             <div>
-                            <img style={{width:"100%", height:"100%",objectFit: 'cover'}} src={user?`https://storage.googleapis.com/notional-cab-381815/certificates/${user.id}`:"ssentsMain/img/avatars/avatar1.jpeg"} />
+                            <img style={{width:"100%", height:"100%",objectFit: 'cover'}} src={user?`https://storage.googleapis.com/money-flow-410110/certificates/${user.id}`:"assentsMain/img/avatars/avatar1.jpeg"} />
                             
                             </div>
                             </div>

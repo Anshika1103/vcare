@@ -24,20 +24,20 @@ function App() {
   });
   const [loading, setLoading] = useState(false);
   const got = false;
-  // useEffect(() => {
-  //   //Make a request to your backend to check if the user is authenticated
-  //   axios.get('/api/user')
-  //     .then(response => {
-  //       setIsAuthenticated(true);
-  //       setUserData(response.data);
-  //       setLoading(false);
-  //     })
-  //     .catch(error => {
-  //       setIsAuthenticated(false);
-  //       setUserData(null);
-  //       setLoading(false);
-  //     });
-  // }, []);
+  useEffect(() => {
+    //Make a request to your backend to check if the user is authenticated
+    axios.get('/api/user')
+      .then(response => {
+        setIsAuthenticated(true);
+        setUserData(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        setIsAuthenticated(false);
+        setUserData(null);
+        setLoading(false);
+      });
+  }, []);
   return (
 <>
 {loading ? (

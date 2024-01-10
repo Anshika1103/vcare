@@ -13,7 +13,7 @@ function Disease(){
     const fetchData = async () => {
       try {
         // Construct the API URL based on the selected filters
-        const apiUrl = `https://api.example.com/data?type=${type}&value=${value}&date=${date}`;
+        const apiUrl = `/api/disease`;
 
         const response = await fetch(apiUrl);
         const jsonData = await response.json();
