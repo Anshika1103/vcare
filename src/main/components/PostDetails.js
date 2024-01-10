@@ -4,8 +4,6 @@ import { useParams } from 'react-router-dom';
 
 export default function PostDetails() {
     const [content, setContent] = useState('');
-
-    const [posts, setPosts] = useState([]);
     const [post, setPost] = useState(null);
     const { postId } = useParams()
     useEffect(() => {
@@ -24,12 +22,12 @@ export default function PostDetails() {
         <>
             <div className="flex-column d-flex align-items-center px-2" style={{ height: "calc(100% - 60px)", overflowY: "scroll" }}>
                 <a href="/post" className="btn btn-info" style={{ position: "absolute", width: "50px", height: "50px", borderRadius: "50%", paddingTop: "10px", bottom: "50px", right: "20px" }}><i class='fas fa-pen'></i></a>
-                {posts && posts.map(post => (
+                {post && (
                     <a href={`/post/${post.id}`} style={{ textDecoration: "none", backgroundColor: "#252525", maxWidth: "80%" }} className="post-card border-0 p-3 m-3 container card">
                         <div className="d-flex gap-3">
                             <div className=" post-profile-icon"><img alt="profile" className="border rounded-circle img-profile" style={{ height: "50px", width: "50px" }} src={`https://storage.googleapis.com/money-flow-410110/${post.author_profile}`} /></div>
                             <div className="post-title-header"><a className="author" href={`/profile/${post.author_id}`}>{post.author_name}</a>
-                                <p className="title-description">At GNUT</p>
+                                {/* <p className="title-description">At GNUT</p> */}
                             </div>
                         </div>
                         <div className="col">
@@ -55,7 +53,7 @@ export default function PostDetails() {
                             </div>
                         </section>
                     </a>
-                ))}
+                )}
             </div>
         </>
     )
